@@ -12,6 +12,11 @@
     padding-right: 40px;
   }
 
+  @media only screen and (max-width: $mobile-width) {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
   &__intro {
     height: 100vh;
     display: flex;
@@ -69,18 +74,37 @@
         margin-left: 20px;
         cursor: pointer;
       }
+
+      @media only screen and (max-width: $mobile-width) {
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+
+        > .button {
+          width: 100%;
+          margin-bottom: 10px;
+        }
+
+        > a {
+          margin-left: 0;
+        }
+      }
     }
 
     &__logo {
       height: 75px;
       width: auto;
+
+      @media only screen and (max-width: $mobile-width) {
+        width: 80%;
+        height: auto;
+      }
     }
 
     > h1.text {
       font-size: 70px;
       margin-bottom: 0;
       max-width: 850px;
-
 
       @media only screen and (max-height: 1000px) and (min-width: 1101px){
         font-size: 50px;
@@ -171,6 +195,14 @@
         justify-content: center;
         margin-right: 15px;
         color: $text;
+
+        @media only screen and (max-width: $mobile-width) {
+          height: 30px;
+          width: 30px;
+          min-height: 30px;
+          min-width: 30px;
+          font-size: 20px;
+        }
       }
     }
 
