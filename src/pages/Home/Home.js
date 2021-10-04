@@ -14,7 +14,9 @@ export default function Home({ onConnect }) {
 				<Text subHeading inverse className="mb-60">Search. Remix. Party.</Text>
 				<div className="home__intro__connect">
 					<Button onClick={onConnect}>Connect To Spotify</Button>
-					<a>Learn More</a>
+					<a onClick={() => {
+						document.querySelector('.home__getting-started').scrollIntoView({ behavior: 'smooth' });
+					}}>Learn More</a>
 				</div>
 				<Circles className="home__intro__circles" />
 			</div>
