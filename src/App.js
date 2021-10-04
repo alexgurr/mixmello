@@ -85,7 +85,7 @@ function App() {
 			authProps: {
 				grant_type: 'authorization_code',
 				code: spotifyAuthCode,
-				redirect_uri: 'http://localhost:3000/',
+				redirect_uri: 'https://www.beta.mixmello.com',
 				code_verifier: spotifyState
 			}
 		});
@@ -111,7 +111,7 @@ function App() {
 		
 		window.location.href = 'https://accounts.spotify.com/authorize?response_type=code'
 			+ `&client_id=581af23d72b04cf19b00ccdf5fcc7bcf`
-			+ `&redirect_uri=http://localhost:3000/`
+			+ `&redirect_uri=https://www.beta.mixmello.com`
 			+ '&scope=playlist-modify-private playlist-read-private playlist-modify-public playlist-read-collaborative'
 			+ `&state=${codeVerifier}`
 			+ `&code_challenge=${codeChallenge}`
