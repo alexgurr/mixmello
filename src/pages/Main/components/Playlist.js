@@ -281,8 +281,8 @@ export default function Playlist({ token, playlist, profileId, onReset, tracks, 
 					}}
 				/>
 				<Accordion title="Settings" className="playlist__settings">
-					<Toggle label="Wider searching when no remixes are found (results will vary)" />
-					<Toggle label="Make the new playlist public" onChange={togglePublic} />
+					{/*<Toggle label="Wider searching when no remixes are found (results will vary)" />*/}
+					<Toggle label="Make your remixed playlist public" onChange={togglePublic} />
 				</Accordion>
 				<div className="playlist__songs-header mb-30">
 					<Text subHeading className="mb-0 mt-0">Songs ({tracks.length})</Text>
