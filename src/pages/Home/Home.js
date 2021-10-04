@@ -11,7 +11,7 @@ export default function Home({ onConnect }) {
 			<div className="home__intro">
 				<Logo className="home__intro__logo" />
 				<Text inverse heading className="mt-20">Create remixed versions of your favourite playlists.</Text>
-				<Text subHeading inverse className="mb-60">Search. Remix. Party.</Text>
+				<Text subHeading inverse className="mb-60">Search. Remix. Groove to the beat.</Text>
 				<div className="home__intro__connect">
 					<Button onClick={onConnect}>Connect To Spotify</Button>
 					<a onClick={() => {
