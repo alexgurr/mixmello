@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
+import 'what-input';
 import App from './App';
-import './_index.scss';
+import './styles/_index.scss';
 
 ReactDOM.render(
   <React.StrictMode>

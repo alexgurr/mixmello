@@ -1,0 +1,90 @@
+@import 'vars';
+
+@mixin scale-hover {
+  cursor: pointer;
+  will-change: transform;
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+@mixin header-padding($allow-large: true) {
+  padding-left: 40px;
+  padding-right: 40px;
+
+  @if $allow-large == true {
+    @media only screen and (min-width: $large-width) {
+      padding-left: 80px;
+      padding-right: 80px;
+    }
+  }
+
+  @media only screen and (max-width: $mobile-width) {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+@mixin app-padding-l($allow-large: true) {
+  padding-left: 40px;
+
+  @media only screen and (max-width: $mobile-width) {
+    padding-left: 20px;
+  }
+
+  @if $allow-large == true {
+    @media only screen and (min-width: $large-width) {
+      padding-left: 80px;
+    }
+  }
+}
+
+@mixin app-padding-r($allow-large: true, $padding-type: 'padding') {
+  #{$padding-type}-right: 40px;
+
+  @media only screen and (max-width: $mobile-width) {
+    #{$padding-type}-right: 20px;
+  }
+
+  @if $allow-large == true {
+    @media only screen and (min-width: $large-width) {
+      #{$padding-type}-right: 80px;
+    }
+  }
+}
+
+@mixin app-padding-t {
+  padding-top: 120px;
+
+  @media only screen and (max-height: 750px) {
+    padding-top: 100px;
+  }
+
+  @media only screen and (max-width: $mobile-width) {
+    padding-top: 50px;
+  }
+}
+
+@mixin app-padding-b($allow-large: true) {
+  padding-bottom: 40px;
+
+  @media only screen and (max-width: $mobile-width) {
+    padding-bottom: 20px;
+  }
+
+  @if $allow-large == true {
+    @media only screen and (min-width: $large-width) {
+      padding-bottom: 80px;
+    }
+  }
+}
+
+
+@mixin app-padding {
+  @include app-padding-l;
+  @include app-padding-r;
+  @include app-padding-t;
+  @include app-padding-b;
+}

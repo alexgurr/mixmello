@@ -1,0 +1,61 @@
+@import 'vars';
+
+.toggle {
+  display: flex;
+  align-items: center;
+
+  .react-toggle:not(.react-toggle--checked) {
+    .react-toggle-track {
+      background: #E5E5E5;
+    }
+
+    .react-toggle-thumb {
+      border-color: #E5E5E5;
+    }
+
+    &:hover {
+      .react-toggle-track {
+        background: darken(#E5E5E5, 5%);
+      }
+
+      .react-toggle-thumb {
+        border-color: darken(#E5E5E5, 5%);
+      }
+    }
+  }
+
+  .react-toggle--focus,
+  .react-toggle:active {
+    .react-toggle-thumb {
+      box-shadow: unset !important;// 0 0 2px 3px $primary;
+    }
+  }
+
+  .react-toggle--checked {
+    .react-toggle-track {
+      background-color: $text;
+    }
+
+    .react-toggle-thumb {
+      border-color: $text;
+    }
+
+    &:hover {
+      .react-toggle-track {
+        background-color: lighten($text, 7%) !important;
+      }
+
+      .react-toggle-thumb {
+        border-color: lighten($text, 7%) !important;
+      }
+    }
+  }
+
+  &__label {
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    flex: 1;
+  }
+}

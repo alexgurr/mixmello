@@ -7,6 +7,6 @@ export default async ({ token }) => {
 		`https://api.spotify.com/v1/me`,
 		{ headers: { Authorization: `Bearer ${token}`} }
 	);
-
-	return data.id;
+	
+	return data;
 }

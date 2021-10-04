@@ -1,0 +1,159 @@
+@import 'vars';
+@import 'mixins';
+
+.button {
+  background: $text;
+  color: white;
+  border: 0;
+  height: 50px;
+  min-height: 50px;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 16px;
+  width: fit-content;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 150px;
+
+  &__content {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    overflow: hidden;
+    padding-left: 20px;
+    padding-right: 20px;
+    position: relative;
+    height: 100%;
+
+    > span {
+      color: white;
+      white-space: nowrap;
+    }
+
+    > svg {
+      margin-right: 10px;
+    }
+  }
+
+  &--dynamic-width &__content {
+    padding-left: 20%;
+    padding-right: 20%;
+  }
+
+  &:focus &__content {
+    > span {
+      color: white;
+    }
+  }
+
+  &:hover {
+    background: lighten($text, 2%);
+  }
+
+  &:hover &__content > span {
+    color: white;
+  }
+
+  &:disabled {
+    background-color: $text !important;
+    pointer-events: none;
+    cursor: default;
+    opacity: 0.5;
+  }
+
+  &--full-width {
+    width: 100% !important;
+  }
+
+  &--icon,
+  &--icon-only {
+    width: 50px;
+    min-width: 50px;
+  }
+
+  &--icon &__content,
+  &--icon-only &__content {
+    padding: 0;
+    width: 100%;
+
+    > svg {
+      margin: auto;
+    }
+  }
+
+  &--icon-only &__content > svg {
+    color: $text;
+  }
+
+  &--icon &__content > svg {
+    font-size: 20px;
+  }
+
+  &--icon-only:disabled {
+    background: none !important;
+  }
+
+  &--busy &__content {
+    > svg {
+      position: absolute;
+      left: calc(50% - 15px);
+      width: 30px;
+    }
+  }
+
+  &--danger {
+    background: $danger;
+
+    &:hover {
+      background: lighten($danger, 5%);
+    }
+  }
+
+  &--secondary {
+    background: white;
+    border: 2px solid $text;
+
+    &:focus {
+      background: white;
+      border-color: $primary;
+    }
+
+    &:hover {
+      background: white;
+      border-color: $primary;
+    }
+
+    &:disabled {
+      background-color: white !important;
+    }
+  }
+
+  &--secondary &__content > span,
+  &--secondary &__content > svg, {
+    color: $text;
+  }
+
+  &--secondary:focus &__content > span,
+  &--secondary:focus &__content > svg, {
+    color: $primary;
+  }
+
+  &--secondary:hover &__content > span,
+  &--secondary:hover &__content > svg, {
+    color: $primary;
+  }
+
+  &--icon-only {
+    @include scale-hover;
+
+    background: none;
+    border: 0;
+    padding: 0;
+
+    &:hover {
+      background: none;
+    }
+  }
+}

@@ -1,0 +1,205 @@
+@import 'vars';
+
+.home {
+  background: $primary;
+  flex: 1;
+  padding-left: 100px;
+  padding-right: 100px;
+  position: relative;
+
+  @media only screen and (max-width: 1000px) {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  &__intro {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+
+    > svg:not(:first-child) {
+      height: 100vh;
+      min-height: 750px;
+
+      @media only screen and (max-width: 1050px) {
+        .circles {
+          &__top-left {
+            cy: 0;
+          }
+
+          &__top-right {
+            cx: 950;
+          }
+
+          &__bottom-left {
+            cy: 600
+          }
+        }
+      }
+
+      @media only screen and (max-height: 700px) {
+        .circles {
+          &__top-left {
+            cy: -150;
+          }
+        }
+      }
+
+      @media only screen and (max-height: 600px) {
+        .circles {
+          &__top-left,
+          &__bottom-left {
+           display: none;
+          }
+        }
+      }
+
+      @media only screen and (max-width: 600px) {
+        display: none;
+      }
+    }
+
+    &__connect {
+      display: flex;
+      align-items: center;
+
+      > a {
+        margin-left: 20px;
+      }
+    }
+
+    &__logo {
+      height: 75px;
+      width: auto;
+    }
+
+    > h1.text {
+      font-size: 70px;
+      margin-bottom: 0;
+      max-width: 850px;
+
+
+      @media only screen and (max-height: 1000px) and (min-width: 1101px){
+        font-size: 50px;
+      }
+
+      @media only screen and (max-width: 1100px) {
+        font-size: 40px;
+        max-width: 700px;
+      }
+
+
+      @media only screen and (max-width: $mobile-width) {
+        font-size: 30px;
+        max-width: 500px;
+      }
+    }
+
+    &__circles {
+      width: 100vw;
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+    }
+  }
+
+  &__getting-started {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-top: 100px;
+    padding-bottom: 100px;
+
+    &__title {
+      margin-bottom: 10px;
+    }
+
+    &__subtitle {
+      font-size: 18px !important;
+      margin-bottom: 100px;
+      max-width: 600px;
+      //opacity: 0.6;
+      font-weight: 400;
+
+      @media only screen and (max-width: $mobile-width) {
+        margin-bottom: 40px;
+      }
+    }
+
+    @media only screen and (max-width: $mobile-width) {
+      padding-top: 40px;
+      padding-bottom: 40px;
+    }
+
+    &__block {
+      max-width: 350px;
+      text-align: center;
+      flex: 1;
+
+      > .text {
+        font-size: 18px !important;
+
+        @media only screen and (max-width: $mobile-width) {
+          font-size: 15px !important;
+        }
+      }
+
+      &__header {
+        display: flex;
+        align-items: center;
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 20px;
+        font-size: 30px;
+      }
+
+      &__number {
+        background: white;
+        font-weight: 800;
+        border-radius: 50%;
+        height: 50px;
+        width: 50px;
+        min-width: 50px;
+        font-size: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        color: $text;
+      }
+    }
+
+    &__container {
+      display: flex;
+      width: 100%;
+      justify-content: space-evenly;
+      max-width: 1500px;
+
+      @media only screen and (max-width: $mobile-width) {
+        flex-direction: column;
+
+        > *:not(:last-child) {
+          margin-bottom: 60px;
+        }
+      }
+    }
+  }
+
+  &__learn-more {
+    &__waves {
+      width: 100vw;
+      height: auto;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+
+      > path {
+        fill: $text;
+      }
+    }
+  }
+}

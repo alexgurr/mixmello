@@ -1,0 +1,27 @@
+@import 'vars';
+
+.pagination {
+  display: flex;
+  align-items: center;
+
+  &__number {
+    color: $text !important;
+    margin-right: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: transform 0.1s ease-in-out;
+    will-change: auto;
+    width: 15px;
+
+    &--current {
+      font-weight: 800;
+      pointer-events: none;
+      transform: scale(1.2);
+      padding: 0;
+    }
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
+}

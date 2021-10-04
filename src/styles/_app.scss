@@ -1,0 +1,24 @@
+@import 'vars';
+
+.app {
+  &__reauth-modal {
+    display: flex;
+    align-items: center;
+    padding-bottom: 50px;
+    padding-top: 30px;
+
+    > img {
+      border-radius: 50px;
+    }
+
+    &__name {
+      > a {
+        color: $primary;
+
+        &:hover {
+          color: $primary;
+        }
+      }
+    }
+  }
+}

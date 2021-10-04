@@ -1,0 +1,39 @@
+@import 'mixins';
+
+.search {
+  @include app-padding;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  flex-direction: column;
+  padding-bottom: 0;
+
+  > .button {
+    width: 250px;
+    min-width: 250px;
+  }
+
+  &__search-input {
+    width: 50%;
+    max-width: 500px;
+
+    @media only screen and (max-width: $mobile-width) {
+      width: 100%;
+    }
+  }
+
+  > .text {
+    margin: 0;
+    text-align: center;
+  }
+
+  > h2.text {
+    margin-bottom: 10px;
+  }
+
+  > p.text {
+    margin-bottom: 30px;
+  }
+}
