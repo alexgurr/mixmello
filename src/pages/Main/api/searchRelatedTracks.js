@@ -14,7 +14,7 @@ async function search({ token, query }) {
 	return items;
 }
 
-export default async ({ token, trackId, trackName, artistName, fallback = true }) => {
+export default async ({ token, trackId, trackName, artistName, fallback = false }) => {
 	if (!token) { return; }
 	
 	await new Promise(resolve => setTimeout(resolve, 250));

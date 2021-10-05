@@ -1,5 +1,5 @@
 import { Button, Text } from 'common/components';
-import { ReactComponent as Logo } from '../../assets/images/logo-inverse.svg';
+import { ReactComponent as Logo } from '../../assets/images/logo-inverse-beta.svg';
 import { ReactComponent as Waves } from '../../assets/images/wave.svg';
 import { ReactComponent as Circles } from '../../assets/images/circles.svg';
 import './_home.scss';

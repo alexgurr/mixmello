@@ -106,11 +106,11 @@
     &__logo {
       height: 75px;
       width: auto;
+      margin-bottom: 20px;
 
       @media only screen and (max-width: $mobile-width) {
         width: 80%;
         height: auto;
-        margin-bottom: 20px;
       }
     }
 
