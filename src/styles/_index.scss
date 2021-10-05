@@ -38,15 +38,8 @@ html,
 }
 
 /* ===== Scrollbar ===== */
-/* Firefox */
-* {
-  scrollbar-width: 6px;
-  scrollbar-color: rgba(17, 32, 53, 0.8) transparent;
-}
-
-/* Chrome, Edge, and Safari */
-*::-webkit-scrollbar {
-  width: 6px;
+::-webkit-scrollbar {
+  width: 12px;
 }
 
 ::-webkit-scrollbar-track {
@@ -54,7 +47,15 @@ html,
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: rgba(17, 32, 53, 0.8);
-  border-radius: 4px;
+  padding: 0 2px;
+  border-right: 2px solid transparent;
+  border-left: 2px solid transparent;
+  background: rgba(17, 32, 53, 0.8);
+  background-clip: padding-box;
+  border-radius: 8px;
+
+  &:hover {
+    background-color: $text;
+  }
 }
 
