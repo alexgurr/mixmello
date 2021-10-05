@@ -3,18 +3,13 @@
 .home {
   background: $primary;
   flex: 1;
-  padding-left: 40px;
-  padding-right: 40px;
+  padding-left: 20px;
+  padding-right: 20px;
   position: relative;
 
-  @media only screen and (max-width: 1000px) {
+  @media only screen and (max-width: $mobile-width) {
     padding-left: 40px;
     padding-right: 40px;
-  }
-
-  @media only screen and (max-width: $mobile-width) {
-    padding-left: 30px;
-    padding-right: 30px;
   }
 
   &__intro {
@@ -27,6 +22,8 @@
     padding-right: 60px;
 
     @media only screen and (max-width: $mobile-width) {
+      padding-left: 0;
+      padding-right: 0;
       align-items: center;
       text-align: center;
 
