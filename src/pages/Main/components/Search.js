@@ -2,9 +2,11 @@ import { useBooleanState } from 'webrix/hooks'
 import searchMusic from '../api/getPlaylists';
 import '../styles/_search.scss';
 import { Button, Dropdown, Text } from 'common/components';
+import { useMediaQuery } from 'react-responsive';
 
 export default function Search({ token, onSelectPlaylist, selectedPlaylist, onRemix }) {
 	const { value: busy, setTrue: setBusy } = useBooleanState();
+	const isMobile = useMediaQuery({ maxWidth: 700 });
 	
 	const handleRemix = () => {
 		setBusy();
@@ -25,10 +27,12 @@ export default function Search({ token, onSelectPlaylist, selectedPlaylist, onRe
 					noOptionsMessage={({ inputValue }) => !inputValue ? 'Ready to search.' : 'No matching playlists, try changing your search.'}
 					loadingMessage={() => 'Finding your playlists ...'}
 					styles={{
-						container: () => ({ height: 75 }),
-						control: (_, { hasValue }) => ({ height: 75, fontSize: hasValue ? void 0 : 20, paddingLeft: 20 }),
-						indicatorsContainer: (base) => ({ ...base, width: 75 }),
-						dropdownIndicator: (base) => ({ ...base, margin: 'auto', svg: { width: 30, height: 30 } }),
+						container: () => ({ height: isMobile ? 50 : 75 }),
+						control: (_, { hasValue }) => ({ height: isMobile ? 50 : 75, fontSize: hasValue || isMobile ? void 0 : 20, paddingLeft: isMobile ? 5 : 20 }),
+						indicatorsContainer: (base) => isMobile ? base : ({ ...base, width: 75 }),
+						dropdownIndicator: (base) => isMobile ? base : ({ ...base, margin: 'auto', svg: { width: 30, height: 30 } }),
+						menuList: base => ({ ...base, maxHeight: document.body.getBoundingClientRect().height / 3 })
+						
 					}}
 					getOptionLabel={option => (
 						<div style={{ display: 'flex', alignItems: 'center' }}>

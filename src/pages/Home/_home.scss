@@ -3,8 +3,8 @@
 .home {
   background: $primary;
   flex: 1;
-  padding-left: 100px;
-  padding-right: 100px;
+  padding-left: 40px;
+  padding-right: 40px;
   position: relative;
 
   @media only screen and (max-width: 1000px) {
@@ -23,6 +23,17 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
+    padding-left: 60px;
+    padding-right: 60px;
+
+    @media only screen and (max-width: $mobile-width) {
+      align-items: center;
+      text-align: center;
+
+      > h2.text {
+        margin-top: 30px;
+      }
+    }
 
     > svg:not(:first-child) {
       height: 100vh;
@@ -61,7 +72,7 @@
         }
       }
 
-      @media only screen and (max-width: 600px) {
+      @media only screen and (max-width: 700px) {
         display: none;
       }
     }
@@ -87,6 +98,7 @@
 
         > a {
           margin-left: 0;
+          margin-top: 10px;
         }
       }
     }
@@ -98,6 +110,7 @@
       @media only screen and (max-width: $mobile-width) {
         width: 80%;
         height: auto;
+        margin-bottom: 20px;
       }
     }
 
@@ -150,7 +163,8 @@
       font-weight: 400;
 
       @media only screen and (max-width: $mobile-width) {
-        margin-bottom: 40px;
+        margin-bottom: 60px;
+        font-size: 15px !important;
       }
     }
 
@@ -164,11 +178,23 @@
       text-align: center;
       flex: 1;
 
+      &:not(:last-of-type) {
+        margin-right: 20px;
+      }
+
+      @media only screen and (max-width: 800px) {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
       > .text {
         font-size: 18px !important;
 
-        @media only screen and (max-width: $mobile-width) {
+        @media
+        only screen and (max-width: 1050px) and (min-width: 800px),
+        only screen and (max-width: $mobile-width) {
           font-size: 15px !important;
+          margin-top: 0;
         }
       }
 
@@ -180,6 +206,20 @@
         margin-right: auto;
         margin-bottom: 20px;
         font-size: 30px;
+
+        @media
+        only screen and (max-width: 1050px) and (min-width: 800px),
+        only screen and (max-width: $mobile-width) {
+          > .text {
+            font-size: 18px;
+          }
+        }
+
+        @media
+        only screen and (max-width: 950px) and (min-width: 800px),
+        only screen and (max-width: $mobile-width) {
+          margin-bottom: 10px;
+        }
       }
 
       &__number {
@@ -196,7 +236,17 @@
         margin-right: 15px;
         color: $text;
 
-        @media only screen and (max-width: $mobile-width) {
+        @media only screen and (max-width: 1050px) {
+          height: 40px;
+          width: 40px;
+          min-height: 40px;
+          min-width: 40px;
+          font-size: 25px;
+        }
+
+        @media
+        only screen and (max-width: 950px) and (min-width: 800px),
+        only screen and (max-width: $mobile-width) {
           height: 30px;
           width: 30px;
           min-height: 30px;
@@ -208,11 +258,10 @@
 
     &__container {
       display: flex;
-      width: 100%;
       justify-content: space-evenly;
       max-width: 1500px;
 
-      @media only screen and (max-width: $mobile-width) {
+      @media only screen and (max-width: 800px) {
         flex-direction: column;
 
         > *:not(:last-child) {

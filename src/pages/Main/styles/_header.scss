@@ -5,7 +5,6 @@
   height: 120px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   position: fixed;
   width: 100vw;
   background: white;
@@ -18,7 +17,7 @@
   }
 
   &--small {
-    height: 50px;
+    height: 70px;
 
     &.header--scrolled {
       border-bottom: 2px solid $light-grey;
@@ -26,7 +25,11 @@
   }
 
   &--small &__title > .text {
-    font-size: 15px !important;
+    font-size: 20px !important;
+
+    @media only screen and (max-width: 350px) {
+      font-size: 16px !important;
+    }
   }
 
   &--small &__title {
@@ -42,20 +45,18 @@
     }
   }
 
-  .avatar {
-    transition: all 0.2s ease-in-out;
+  &__avatar-container {
     margin-left: auto;
 
-    @media only screen and (max-width: 1000px) {
-      height: 40px;
-      width: 40px;
-      margin-left: 10px;
+    > .avatar {
+      transition: all 0.2s ease-in-out;
+      margin-left: auto;
     }
   }
 
   &--small .avatar {
-    width: 30px !important;
-    height: 30px !important;
+    width: 40px !important;
+    height: 40px !important;
   }
 
   &--small {
@@ -73,6 +74,11 @@
     width: auto;
     max-height: 80px;
   }
+  &--small {
+    > svg {
+      height: 40px;
+    }
+  }
 
   &__title {
     display: flex;
@@ -80,12 +86,6 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-
-    @media only screen and (max-width: 1000px) {
-      position: relative;
-      left: unset;
-      transform: unset;
-    }
 
     > .text {
       transition: font-size 0.2s ease-in-out;

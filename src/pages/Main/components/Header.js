@@ -13,6 +13,7 @@ import '../styles/_header.scss';
 
 export default function Header({ stage, title, profile, signOut }) {
 	const isMobile = useMediaQuery({ maxWidth: 700 });
+	const smallLogo = useMediaQuery({ maxWidth: 950 });
 	
 	const { value: small, setFalse: setLarge, setTrue: setSmall } = useBooleanState(false);
 	
@@ -24,19 +25,19 @@ export default function Header({ stage, title, profile, signOut }) {
 	
 	return (
 		<div className={cx('header', { 'header--small': small || isMobile, 'header--scrolled': small })}>
-			{isMobile ? <LogoIcon /> : <Logo />}
+			{smallLogo ? <LogoIcon /> : <Logo />}
 			<div className="header__title">
 				<span className="header__title__number"><Text inverse subHeading>{stage}</Text></span>
 				<Text heading>{title}</Text>
 			</div>
-			<div>
+			<div className="header__avatar-container">
 				<Menu
 					offsetY={20}
 					direction="bottom"
 					menuButton={<Avatar className="scale-hover" url={profile?.images?.[0].url} />}
 					transition
 				>
-					<MenuItem onClick={signOut}><Icon className="mr-20" name="faSignOutAlt" />Sign Out</MenuItem>
+					<MenuItem onClick={signOut}><Icon className="mr-10" name="faSignOutAlt" />Sign Out</MenuItem>
 				</Menu>
 			</div>
 		</div>

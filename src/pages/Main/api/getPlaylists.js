@@ -1,7 +1,7 @@
 import axios from 'axios';
 import _memoize from 'lodash.memoize';
 import Fuse from 'fuse.js'
-import getPaginatedItems from './getPaginatedItems';
+import getPaginatedItems from './utils/getPaginatedItems';
 
 function filterPlaylists(playlists, filter) {
 	const fuse = new Fuse(playlists, { shouldSort: true, keys: ['name'], threshold: 0.3 })

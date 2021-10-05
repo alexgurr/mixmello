@@ -1,4 +1,4 @@
-import getPaginatedItems from './getPaginatedItems';
+import getPaginatedItems from './utils/getPaginatedItems';
 
 export default async ({ token, playlistId }) => {
 	if (!token) { return; }
