@@ -91,6 +91,7 @@
         > .button {
           width: 100%;
           margin-bottom: 10px;
+          max-width: 400px;
         }
 
         > a {
@@ -106,8 +107,9 @@
       margin-bottom: 20px;
 
       @media only screen and (max-width: $mobile-width) {
-        width: 80%;
+        width: 100%;
         height: auto;
+        max-width: 400px;
       }
     }
 
