@@ -16,6 +16,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   width: 100vw;
   overflow-x: hidden;
+  overflow-y: overlay;
 }
 
 body,
@@ -36,4 +37,24 @@ html,
   outline: none;
 }
 
+/* ===== Scrollbar ===== */
+/* Firefox */
+* {
+  scrollbar-width: 6px;
+  scrollbar-color: rgba(17, 32, 53, 0.8) transparent;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  display: none;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(17, 32, 53, 0.8);
+  border-radius: 4px;
+}
 
