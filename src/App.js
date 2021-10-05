@@ -9,6 +9,8 @@ import getUserProfile from './common/api/getUserProfile';
 import { useBooleanState } from 'webrix/hooks';
 import { Avatar, Button, Modal, Text } from './common/components';
 import './styles/_app.scss';
+import postEvent from './common/utils/postEvent';
+import CONFIG from './config';
 
 async function getToken({ profile: profileProp, setToken, setProfile, authProps, rethrowError = false }) {
 	const options = {
@@ -85,10 +87,12 @@ function App() {
 			authProps: {
 				grant_type: 'authorization_code',
 				code: spotifyAuthCode,
-				redirect_uri: 'https://www.mixmello.com',
+				redirect_uri: CONFIG.REDIRECT_URL,
 				code_verifier: spotifyState
 			}
 		});
+		
+		postEvent('connect-spotify');
 		
 		history.push('/');
 	}, [spotifyAuthCode]);
@@ -111,7 +115,7 @@ function App() {
 		
 		window.location.href = 'https://accounts.spotify.com/authorize?response_type=code'
 			+ `&client_id=581af23d72b04cf19b00ccdf5fcc7bcf`
-			+ `&redirect_uri=https://www.mixmello.com`
+			+ `&redirect_uri=${CONFIG.REDIRECT_URL}`
 			+ '&scope=playlist-modify-private playlist-read-private playlist-modify-public playlist-read-collaborative'
 			+ `&state=${codeVerifier}`
 			+ `&code_challenge=${codeChallenge}`

@@ -1,9 +1,9 @@
 import { Button, Text } from 'common/components';
 import '../styles/_success.scss';
 
-export default function Success({ newUrl, onReset }) {
+export default function Success({ playlistUrl, onReset }) {
 	const onOpen = () => {
-		window.open(newUrl);
+		window.open(playlistUrl);
 	};
 	
 	return (

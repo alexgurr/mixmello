@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import cx from 'classnames';
+import { useMediaQuery } from 'react-responsive';
 import { useBooleanState } from 'webrix/hooks';
 import { createPortal } from 'react-dom';
 import AutosizeInput from 'react-input-autosize';
@@ -11,7 +12,7 @@ import CheckBox from '../../../common/components/CheckBox';
 import useNumberFlow from '../../../common/hooks/useNumberFlow';
 import '../styles/_playlist.scss';
 import Pagination from './Pagination';
-import { useMediaQuery } from 'react-responsive';
+import postEvent from '../../../common/utils/postEvent';
 
 const MAX_RESULTS = 20;
 
@@ -236,6 +237,8 @@ export default function Playlist({ token, playlist, profileId, onReset, tracks, 
 				remixedTracks: tracks,
 				publicPlaylist
 			});
+			
+			postEvent('playlist-saved');
 			
 			onSuccess(`spotify:playlist:${newPlaylistId}`);
 		} catch {
