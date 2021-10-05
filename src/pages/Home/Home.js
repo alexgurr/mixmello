@@ -13,7 +13,7 @@ export default function Home({ onConnect }) {
 				<Text inverse heading className="mt-20">Create remixed versions of your favourite playlists.</Text>
 				<Text subHeading inverse className="mb-60">Search. Remix. Groove to the beat.</Text>
 				<div className="home__intro__connect">
-					<Button onClick={onConnect}>Connect To Spotify</Button>
+					<Button icon="faSpotify" onClick={onConnect}>Connect To Spotify</Button>
 					<a onClick={() => {
 						document.querySelector('.home__getting-started').scrollIntoView({ behavior: 'smooth' });
 					}}>Learn More</a>
