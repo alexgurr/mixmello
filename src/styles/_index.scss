@@ -36,26 +36,3 @@ html,
 [data-whatintent='touch'] *:focus {
   outline: none;
 }
-
-/* ===== Scrollbar ===== */
-::-webkit-scrollbar {
-  width: 12px;
-}
-
-::-webkit-scrollbar-track {
-  display: none;
-}
-
-::-webkit-scrollbar-thumb {
-  padding: 0 2px;
-  border-right: 2px solid transparent;
-  border-left: 2px solid transparent;
-  background: rgba(17, 32, 53, 0.8);
-  background-clip: padding-box;
-  border-radius: 8px;
-
-  &:hover {
-    background-color: $text;
-  }
-}
-
