@@ -127,24 +127,59 @@ $small-rows: 950px;
     border: 2px solid $light-grey;
     position: relative;
 
+    &:not(&--error) {
+      flex: 1;
+    }
+
+    &--error {
+      padding-right: 10px;
+    }
+
+    &-container {
+      display: flex;
+      align-items: center;
+      border-radius: 8px;
+      width: 100%;
+
+      > .button {
+        @media only screen and (max-width: $small-rows) {
+          margin-left: auto;
+          margin-right: auto;
+          width: calc(100% - 60px);
+          margin-bottom: 40px;
+        }
+      }
+
+      @media only screen and (max-width: $small-rows) {
+        flex-direction: column;
+        border: 2px solid $light-grey;
+      }
+
+      &:not(:last-of-type) {
+        margin-bottom: 20px;
+      }
+    }
+
     @media only screen and (max-width: $small-rows) {
       flex-direction: column;
       height: unset;
       padding: 40px 30px;
+      width: 100%;
     }
 
     &--disabled {
       background: none;
     }
 
-    &--empty {
+    &--loading {
       background: none;
       border-color: transparent;
-      opacity: 0.4;
     }
 
-    &:not(:last-of-type) {
-      margin-bottom: 20px;
+    &--empty {
+      background: none;
+      opacity: 0.6;
+      border-color: transparent;
     }
 
     &__checkbox {
@@ -179,7 +214,10 @@ $small-rows: 950px;
     &__arrow {
       margin-left: 70px;
       margin-right: 70px;
-      color: $dark-grey !important;
+
+      > svg {
+        color: $dark-grey !important;
+      }
 
       @media only screen and (max-width: 1250px) {
         margin-left: 50px;
@@ -193,6 +231,23 @@ $small-rows: 950px;
 
       @media only screen and (max-width: $small-rows) {
         margin: 30px 0;
+        width: 100%;
+        display: flex;
+        align-items: center;
+
+        > svg {
+          margin-left: 20px;
+          margin-right: 20px;
+        }
+
+        &::before,
+        &::after {
+          content: '';
+          display: block;
+          height: 2px;
+          background: $mid-grey;
+          width: 100%;
+        }
       }
     }
 

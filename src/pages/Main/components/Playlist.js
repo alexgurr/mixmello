@@ -57,7 +57,7 @@ function Track({ name, albumName, albumUrl, fallback, error, loading, noMatch, p
 					? (
 						<div className="playlist__row__track__content">
 							{!error ? <p className="mt-0">{loading ? 'Finding you a remix' : 'No remixes found'}</p> : null}
-							{error ? <p className="mt-0">Something went wrong finding this remix</p> : null}
+							{error ? <p className="mt-0">Something went wrong</p> : null}
 						</div>
 					)
 					: (
@@ -125,9 +125,10 @@ function RemixedTrack({ selection = [], trackId, loading, noMatch, fallback, err
 	);
 }
 
-function TrackRow({ track, remixedTracks, rowIndex, trackListMap, isMobile, isSmall }) {
-	const loadingRemixTrack = remixedTracks.length - 1 < rowIndex;
-	const noMatch = !remixedTracks[rowIndex]?.items.length && !loadingRemixTrack;
+function TrackRow({ track, remixListMap, trackListMap, isSmall, onRetryTrack }) {
+	const remixedTrack = remixListMap.get(track.id);
+	const loadingRemixTrack = !remixedTrack;
+	const noMatch = !remixedTrack?.items.length && !loadingRemixTrack;
 	const trackInList = trackListMap.get(track.id);
 	const { value, setFalse, setTrue, toggle } = useBooleanState(trackInList ? trackInList.enabled : false);
 	
@@ -141,39 +142,52 @@ function TrackRow({ track, remixedTracks, rowIndex, trackListMap, isMobile, isSm
 		toggle();
 		
 		trackListMap.set(track.id, {
-			...(trackListMap.get(track.id) || { track: remixedTracks[rowIndex]?.items[0]?.uri }),
+			...(trackListMap.get(track.id) || { track: remixedTrack?.items[0]?.uri }),
 			enabled: !value
 		});
 	};
 	
+	const error = remixedTrack?.error;
+	
 	return (
-		<div
-			className={cx(
-				'playlist__row',
-				{ 'playlist__row--empty': noMatch, 'playlist__row--disabled': (!value && !noMatch) || loadingRemixTrack }
+		<div className="playlist__row-container">
+			<div
+				className={cx(
+					'playlist__row',
+					{
+						'playlist__row--empty': noMatch,
+						'playlist__row--loading': loadingRemixTrack,
+						'playlist__row--error': error,
+						'playlist__row--disabled': !value && !noMatch && !loadingRemixTrack
+					}
+				)}
+				key={track.id}
+			>
+				<CheckBox
+					onChange={onChangeEnabled}
+					className='playlist__row__checkbox mr-40'
+					checked={loadingRemixTrack || noMatch ? false : value}
+					disabled={noMatch || loadingRemixTrack}
+				/>
+				<Track name={track.name} albumName={track.album?.name} albumUrl={track.album?.images?.[0]?.url} />
+				<div className="playlist__row__arrow">
+					<Icon name={isSmall ? 'faChevronDown' : 'faLongArrowAltRight'} />
+				</div>
+				<RemixedTrack
+					selection={remixedTrack?.items}
+					fallback={remixedTrack?.fallback}
+					error={error}
+					loading={loadingRemixTrack}
+					noMatch={noMatch}
+					trackListMap={trackListMap}
+					trackId={track.id}
+				/>
+			</div>
+			{error && (
+				<Button type="secondary" icon="faSync" iconSize={15} onClick={onRetryTrack(track)}>
+					Try Again
+				</Button>
 			)}
-			key={track.id || rowIndex}
-		>
-			<CheckBox
-				onChange={onChangeEnabled}
-				className='playlist__row__checkbox mr-40'
-				checked={loadingRemixTrack || noMatch ? false : value}
-				disabled={noMatch || loadingRemixTrack}
-			/>
-			<Track name={track.name} albumName={track.album?.name} albumUrl={track.album?.images?.[0]?.url} />
-			<Icon
-				className="playlist__row__arrow"
-				name={isSmall ? 'faChevronDown' : 'faLongArrowAltRight'}
-			/>
-			<RemixedTrack
-				selection={remixedTracks[rowIndex]?.items}
-				fallback={remixedTracks[rowIndex]?.fallback}
-				error={remixedTracks[rowIndex]?.error}
-				loading={loadingRemixTrack}
-				noMatch={noMatch}
-				trackListMap={trackListMap}
-				trackId={track.id}
-			/>
 		</div>
 	);
 }
@@ -182,7 +196,6 @@ export default function Playlist({ token, playlist, profileId, onReset, tracks, 
 	const { value: publicPlaylist, toggle: togglePublic } = useBooleanState();
 	const [name, setName] = useState(`${playlist.name} vol. 2`);
 	const [hideProgress, setProgressHidden] = useState(false);
-	const [remixedTracks, setRemixedTracks] = useState([]);
 	const isMobile = useMediaQuery({ maxWidth: 700 });
 	const isSmall = useMediaQuery({ maxWidth: 950 });
 	const totalPages = Math.ceil(tracks.length / MAX_RESULTS);
@@ -194,29 +207,34 @@ export default function Playlist({ token, playlist, profileId, onReset, tracks, 
 		atFloor,
 		setNumber: setPage
 	} = useNumberFlow({ initialNumber: 1, min: 1, max: totalPages });
-	const { value: saving, toggle: toggleSaving } = useBooleanState();
+	const { value: saving, setTrue: setSaving, setFalse: setNotSaving } = useBooleanState();
 	const [trackListMap] = useState(new Map());
+	const [remixListMap] = useState(new Map());
+	const [remixLastUpdated, onRemixUpdated] = useState(null);
 	
 	const handleTracks = async (retrievedTracks) => {
-		const currentRemixed = [];
-		
-		for(let track of retrievedTracks) {
-			const remixed = await searchRelatedTracks({
-				token,
-				trackId: track.id,
-				trackName: track.name,
-				artistName: track.artists?.[0]?.name || ''
-			});
+		for (let track of retrievedTracks) {
+			const remixed = await searchRelatedTracks({ token, track });
 			
-			currentRemixed.push(remixed);
-		
-			setRemixedTracks([...currentRemixed]);
+			remixListMap.set(track.id, remixed);
+			
+			onRemixUpdated(Date.now());
 		}
 	};
 	
-	useEffect(() => {
-		handleTracks(tracks);
-	}, []);
+	useEffect(() => { handleTracks(tracks);	}, []);
+	
+	const onRetryTrack = track => async () => {
+		remixListMap.delete(track.id);
+		
+		onRemixUpdated(Date.now());
+		
+		const remixed = await searchRelatedTracks({ token, track });
+		
+		remixListMap.set(track.id, remixed);
+		
+		onRemixUpdated(Date.now());
+	}
 	
 	const onSave = async () => {
 		const tracks = Array.from(trackListMap).reduce((trackList, [, { enabled, track }]) => {
@@ -227,7 +245,7 @@ export default function Playlist({ token, playlist, profileId, onReset, tracks, 
 		
 		if (!tracks.length) { return; }
 
-		toggleSaving();
+		setSaving();
 		
 		try {
 			const newPlaylistId = await createRemixPlaylist({
@@ -242,19 +260,17 @@ export default function Playlist({ token, playlist, profileId, onReset, tracks, 
 			
 			onSuccess(`spotify:playlist:${newPlaylistId}`);
 		} catch {
-			toggleSaving();
+			setNotSaving();
 		}
 	};
 	
-	const progressPercent = (remixedTracks.length / tracks.length) * 100;
+	const progressPercent = (remixListMap.size / tracks.length) * 100;
 	
 	useEffect(() => {
 		if (progressPercent !== 100) { return; }
 		
-		setTimeout(() => {
-			setProgressHidden(true);
-		}, 2000);
-	}, [remixedTracks])
+		setTimeout(() => { setProgressHidden(true); }, 2000);
+	}, [remixLastUpdated])
 	
 	const header = document.querySelector('.header');
 	
@@ -266,7 +282,7 @@ export default function Playlist({ token, playlist, profileId, onReset, tracks, 
 			<div className="playlist__progress">
 				<span className="playlist__progress__bar" style={{ width: `${progressPercent.toFixed(0)}%` }} />
 				<span className="playlist__progress__text">
-					<span className="playlist__progress__text__remixing">Remixing </span>{remixedTracks.length} / {tracks.length}
+					<span className="playlist__progress__text__remixing">Remixing </span>{remixListMap.size} / {tracks.length}
 				</span>
 			</div>,
 			header
@@ -299,14 +315,14 @@ export default function Playlist({ token, playlist, profileId, onReset, tracks, 
 						setPage={setPage}
 					/>
 				</div>
-				{paginatedTracks.map((track, index) => (
+				{paginatedTracks.map(track => (
 					<TrackRow
 						trackListMap={trackListMap}
 						track={track}
-						remixedTracks={remixedTracks}
-						rowIndex={index + ((page - 1) * MAX_RESULTS)}
+						remixListMap={remixListMap}
 						isMobile={isMobile}
 						isSmall={isSmall}
+						onRetryTrack={onRetryTrack}
 					/>
 				))}
 				<Pagination
@@ -321,7 +337,7 @@ export default function Playlist({ token, playlist, profileId, onReset, tracks, 
 				/>
 				<div className="playlist__footer mt-60">
 					<Button onClick={onReset} type="secondary">Remix Another Playlist</Button>
-					<Button busy={saving} onClick={onSave} disabled={!name || remixedTracks.length !== tracks.length}>
+					<Button busy={saving} onClick={onSave} disabled={!name || remixListMap.size !== tracks.length}>
 						Save
 					</Button>
 				</div>

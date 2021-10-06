@@ -23,6 +23,7 @@
     "lodash.memoize": "^4.1.2",
     "lodash.throttle": "^4.1.1",
     "node-sass": "5",
+    "noty": "^3.2.0-beta-deprecated",
     "query-string": "^7.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

@@ -65,10 +65,10 @@ h5 {
 }
 
 a {
-  color: white;
+  color: $primary !important;
+  cursor: pointer;
 
   &:hover {
-    color: white;
-    text-decoration: underline;
+    color: $primary !important;
   }
 }

@@ -1,23 +1,70 @@
 @import 'vars';
 
 .app {
-  &__reauth-modal {
+  &__connect-error {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    padding-bottom: 50px;
-    padding-top: 30px;
+    margin: auto;
+    padding-left: 40px;
+    padding-right: 40px;
 
-    > img {
-      border-radius: 50px;
+    @media only screen and (max-width: $mobile-width) {
+      padding-left: 20px;
+      padding-right: 20px;
     }
 
-    &__name {
-      > a {
-        color: $primary;
+    > svg {
+      max-width: 200px;
 
-        &:hover {
-          color: $primary;
+      @media only screen and (max-width: $mobile-width) {
+        width: 100px;
+      }
+    }
+
+    > .text {
+      max-width: 600px;
+      text-align: center;
+    }
+
+    &__actions {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      justify-content: center;
+
+      > button {
+        width: 200px;
+      }
+
+      @media only screen and (max-width: $mobile-width) {
+        flex-direction: column;
+
+        > button {
+          width: 100%;
+          max-width: 300px;
         }
+      }
+
+      > *:first-child {
+        margin-right: 30px;
+
+        @media only screen and (max-width: $mobile-width) {
+          margin-right: 0;
+          margin-bottom: 20px;
+        }
+      }
+    }
+  }
+
+  &__reauth-modal {
+    &__content {
+      display: flex;
+      align-items: center;
+      margin-bottom: 40px;
+
+      > img {
+        border-radius: 50px;
       }
     }
   }

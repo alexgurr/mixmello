@@ -7,6 +7,15 @@
   padding-right: 20px;
   position: relative;
 
+  a {
+    color: white;
+
+    &:hover {
+      color: white;
+      text-decoration: underline;
+    }
+  }
+
   @media only screen and (max-width: $mobile-width) {
     padding-left: 40px;
     padding-right: 40px;

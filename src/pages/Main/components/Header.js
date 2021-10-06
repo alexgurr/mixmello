@@ -21,7 +21,7 @@ export default function Header({ stage, title, profile, signOut }) {
 		if (y > -(isMobile ? 10 : 30)) { return void setLarge(); }
 		
 		setSmall();
-	}), 500);
+	}, 500));
 	
 	return (
 		<div className={cx('header', { 'header--small': small || isMobile, 'header--scrolled': small })}>

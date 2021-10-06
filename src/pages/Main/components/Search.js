@@ -5,12 +5,17 @@ import { Button, Dropdown, Text } from 'common/components';
 import { useMediaQuery } from 'react-responsive';
 
 export default function Search({ token, onSelectPlaylist, selectedPlaylist, onRemix }) {
-	const { value: busy, setTrue: setBusy } = useBooleanState();
+	const { value: busy, setTrue: setBusy, setFalse: setNotBusy } = useBooleanState();
 	const isMobile = useMediaQuery({ maxWidth: 700 });
 	
-	const handleRemix = () => {
+	const handleRemix = async () => {
 		setBusy();
-		onRemix();
+		
+		try {
+			await onRemix();
+		} catch {
+			setNotBusy();
+		}
 	};
 	
 	return (
@@ -29,10 +34,10 @@ export default function Search({ token, onSelectPlaylist, selectedPlaylist, onRe
 					styles={{
 						container: () => ({ height: isMobile ? 50 : 75 }),
 						control: (_, { hasValue }) => ({ height: isMobile ? 50 : 75, fontSize: hasValue || isMobile ? void 0 : 20, paddingLeft: isMobile ? 5 : 20 }),
-						indicatorsContainer: (base) => isMobile ? base : ({ ...base, width: 75 }),
+						indicatorsContainer: (base, { selectProps: { isLoading } }) => isMobile ? base : ({ ...base, width: isLoading ? 151 : 75, minWidth: 75 }),
 						dropdownIndicator: (base) => isMobile ? base : ({ ...base, margin: 'auto', svg: { width: 30, height: 30 } }),
-						menuList: base => ({ ...base, maxHeight: document.body.getBoundingClientRect().height / 3 })
-						
+						menuList: base => ({ ...base, maxHeight: document.body.getBoundingClientRect().height / 3 }),
+						loadingIndicator: base => ({ ...base, marginLeft: 20, marginRight: 20 })
 					}}
 					getOptionLabel={option => (
 						<div style={{ display: 'flex', alignItems: 'center' }}>

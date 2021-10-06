@@ -18,7 +18,7 @@ export default function Success({ playlistUrl, onReset }) {
 				<Text subHeading className="mt-0">We've gone and created your new playlist 🎉</Text>
 				<div className="success__actions">
 					<Button onClick={onReset} type="secondary">Remix Another Playlist</Button>
-					<Button onClick={onOpen} >
+					<Button icon="faExternalLinkAlt" iconSize={16} onClick={onOpen} >
 						Open In Spotify
 					</Button>
 				</div>

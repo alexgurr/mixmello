@@ -2,17 +2,18 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import queryString from 'querystring';
 import { useHistory } from 'react-router-dom';
+import { useBooleanState } from 'webrix/hooks';
+import { ReactComponent as ErrorLogoIcon } from './assets/images/logo-error-icon.svg';
 import { generateCodeChallengeFromVerifier, generateCodeVerifier } from './pkce';
 import Home from './pages/Home';
 import Main from './pages/Main';
 import getUserProfile from './common/api/getUserProfile';
-import { useBooleanState } from 'webrix/hooks';
 import { Avatar, Button, Modal, Text } from './common/components';
-import './styles/_app.scss';
 import postEvent from './common/utils/postEvent';
 import CONFIG from './config';
+import './styles/_app.scss';
 
-async function getToken({ profile: profileProp, setToken, setProfile, authProps, rethrowError = false }) {
+async function getToken({ profile: profileProp, setToken, setProfile, authProps }) {
 	const options = {
 		method: 'POST',
 		headers: { 'content-type': 'application/x-www-form-urlencoded' },
@@ -23,24 +24,19 @@ async function getToken({ profile: profileProp, setToken, setProfile, authProps,
 		url: 'https://accounts.spotify.com/api/token'
 	};
 	
-	try {
-		const { data: { access_token: accessToken, refresh_token: refreshToken } } = await axios(options);
-		const profile = profileProp || await getUserProfile({ token: accessToken });
-		
-		setToken(accessToken);
-		setProfile(profile);
-		
-		localStorage.setItem('spotify-token', refreshToken);
-		localStorage.setItem('spotify-profile', JSON.stringify(profile));
-	} catch (e) {
-		if (!rethrowError) { return; }
-		
-		throw e;
-	}
+	const { data: { access_token: accessToken, refresh_token: refreshToken } } = await axios(options);
+	const profile = profileProp || await getUserProfile({ token: accessToken });
+	
+	setToken(accessToken);
+	setProfile(profile);
+	
+	localStorage.setItem('spotify-token', refreshToken);
+	localStorage.setItem('spotify-profile', JSON.stringify(profile));
 }
 
 function App() {
 	const storedProfile = localStorage.getItem('spotify-profile');
+	const [error, setError] = useState(false);
 	const [profile, setProfile] = useState(storedProfile ? JSON.parse(storedProfile) : null);
 	const { value: confirmAuth, toggle: toggleConfirmAuth } = useBooleanState();
 	const [token, setToken] = useState(null);
@@ -62,8 +58,7 @@ function App() {
 					authProps: {
 						refresh_token: refreshToken,
 						grant_type: 'refresh_token',
-					},
-					rethrowError: true
+					}
 				});
 			} catch {
 				toggleConfirmAuth();
@@ -77,24 +72,32 @@ function App() {
 	}, []);
 	
 	useEffect(() => {
-		if (!spotifyAuthCode) { return; }
-		
-		getToken({
-			profile,
-			setToken,
-			setProfile,
-			history,
-			authProps: {
-				grant_type: 'authorization_code',
-				code: spotifyAuthCode,
-				redirect_uri: CONFIG.REDIRECT_URL,
-				code_verifier: spotifyState
+		const handleConnect = async () => {
+			if (!spotifyAuthCode) { return; }
+			
+			try {
+				await getToken({
+					profile,
+					setToken,
+					setProfile,
+					history,
+					authProps: {
+						grant_type: 'authorization_code',
+						code: spotifyAuthCode,
+						redirect_uri: CONFIG.REDIRECT_URL,
+						code_verifier: spotifyState
+					}
+				});
+				
+				postEvent('connect-spotify');
+			} catch {
+				setError(true);
+			} finally {
+				history.push('/');
 			}
-		});
+		}
 		
-		postEvent('connect-spotify');
-		
-		history.push('/');
+		handleConnect();
 	}, [spotifyAuthCode]);
 	
 	const signOut = () => {
@@ -122,21 +125,44 @@ function App() {
 			+ '&code_challenge_method=S256';
 	};
 	
+	if (error) {
+		return (
+			<div className="app__connect-error">
+				<ErrorLogoIcon />
+				<Text heading className="mb-20 mt-30">Oh no! Something went wrong connecting to Spotify.</Text>
+				<Text subHeading className="mt-0 mb-50">It's probably a one time thing.</Text>
+				<div className="app__connect-error__actions">
+					<Button type="secondary" onClick={() => window.location.reload()}>
+						Refresh The Page
+					</Button>
+					<Button onClick={onConnect} icon="faSpotify">Try Again</Button>
+				</div>
+				<Text className="mt-50">
+					Keep seeing this? <a href="https://www.twitter.com/alexgurr" target="_blank" rel="noreferrer">Get In Touch</a>.
+				</Text>
+			</div>
+		)
+	}
+	
 	if (confirmAuth) {
 		return (
 			<Modal title="We Need To Confirm Your Identity" visible stayOpen width={600}>
 				<div className="app__reauth-modal">
-					<Avatar url={profile?.images?.[0].url} large />
-					<div className="app__reauth-modal__name ml-20">
-						<Text subHeading className="mb-5 mt-0">{profile?.display_name}</Text>
-						<a onClick={signOut}>Not you?</a>
+					<div className="app__reauth-modal__content">
+						<Avatar url={profile?.images?.[0].url} large />
+						<div className="app__reauth-modal__name ml-20">
+							<Text subHeading className="mb-5 mt-0">{profile?.display_name}</Text>
+							<a onClick={signOut}>Not you?</a>
+						</div>
+						<Button
+							className="ml-auto ml-40"
+							onClick={onConnect}
+							icon="faSpotify"
+						>
+							Re-connect Spotify
+						</Button>
 					</div>
-					<Button
-						className="ml-auto ml-40"
-						onClick={onConnect}
-					>
-						Re-connect Spotify
-					</Button>
+					<Text className="ml-10">Keep seeing this? <a href="https://www.twitter.com/alexgurr" target="_blank" rel="noreferrer">Get In Touch</a>.</Text>
 				</div>
 			</Modal>
 		);
@@ -145,9 +171,7 @@ function App() {
 	if ((spotifyAuthCode || localStorage.getItem('spotify-token')) && !token) { return null; }
 	
 	if (!token) {
-		return (
-			<Home onConnect={onConnect} />
-		);
+		return <Home onConnect={onConnect} />;
 	}
 	
 	return <Main token={token} profile={profile} signOut={signOut} />;

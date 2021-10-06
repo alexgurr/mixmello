@@ -1,7 +1,7 @@
-import axios from 'axios';
 import _memoize from 'lodash.memoize';
 import Fuse from 'fuse.js'
 import getPaginatedItems from './utils/getPaginatedItems';
+import withApiErrorHandling from 'common/utils/withApiErrorHandling';
 
 function filterPlaylists(playlists, filter) {
 	const fuse = new Fuse(playlists, { shouldSort: true, keys: ['name'], threshold: 0.3 })
@@ -13,11 +13,11 @@ function filterPlaylists(playlists, filter) {
 const getAllPlaylists = _memoize((token, api) => getPaginatedItems(token, api));
 
 export default token => (
-	async (search) => {
+	withApiErrorHandling(async (search) => {
 		if (!token) { return; }
 		
 		const playlists = await getAllPlaylists(token, 'me/playlists');
 		
 		return filterPlaylists(playlists, search);
-	}
+	})
 );

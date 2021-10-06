@@ -14,13 +14,16 @@ async function search({ token, query }) {
 	return items;
 }
 
-export default async ({ token, trackId, trackName, artistName, fallback = false }) => {
+export default async ({ token, track, fallback = false }) => {
 	if (!token) { return; }
+	
+	const artistName = track.artists?.[0]?.name || '';
+	const trackName = track.name;
+	const trackId = track.id;
 	
 	await new Promise(resolve => setTimeout(resolve, 250));
 	
 	try {
-		console.log(trackName);
 		const items = await search({ token, query: getRemixSearchTerm({ trackName, artistName }) });
 		
 		if (items.length || !fallback) {
