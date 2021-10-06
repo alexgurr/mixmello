@@ -1,0 +1,68 @@
+@import 'vars';
+@import 'mixins';
+
+.soundtracks {
+  @include app-padding;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  min-height: 0;
+  justify-content: center;
+
+  &__movie-container {
+    display: flex;
+    height: calc(100% - 80px);
+  }
+
+  &__movie {
+    border-radius: 12px;
+    width: auto;
+    height: 100%;
+  }
+
+  &__soundtrack {
+    display: flex;
+    flex-direction: column;
+    margin-left: 40px;
+
+    &__info {
+      display: flex;
+      align-items: center;
+
+      &__controls {
+        display: flex;
+        align-items: center;
+      }
+
+      > img {
+        margin-right: 20px;
+        align-items: center;
+        border-radius: 6px;
+      }
+
+      &__actions {
+        display: flex;
+        align-items: center;
+        margin-top: 40px;
+
+        > button:first-of-type {
+          margin-right: 20px;
+
+          @media only screen and (max-width: 815px) {
+            margin-right: 0;
+            margin-bottom: 20px;
+          }
+
+        }
+        @media only screen and (max-width: 815px) {
+          flex-direction: column;
+
+          > button {
+            width: 100%;
+          }
+        }
+
+      }
+    }
+  }
+}

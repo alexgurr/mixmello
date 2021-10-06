@@ -1,12 +1,13 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import queryString from 'querystring';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Route, Switch } from 'react-router-dom';
 import { useBooleanState } from 'webrix/hooks';
 import { ReactComponent as ErrorLogoIcon } from './assets/images/logo-error-icon.svg';
 import { generateCodeChallengeFromVerifier, generateCodeVerifier } from './pkce';
 import Home from './pages/Home';
 import Main from './pages/Main';
+import MoviesMain from './pages/Movies';
 import getUserProfile from './common/api/getUserProfile';
 import { Avatar, Button, Modal, Text } from './common/components';
 import postEvent from './common/utils/postEvent';
@@ -194,7 +195,12 @@ function App() {
 		return <Home onConnect={onConnect} />;
 	}
 	
-	return <Main token={token} profile={profile} signOut={signOut} />;
+	return (
+		<Switch>
+			<Route exact path="/" render={() => <Main token={token} profile={profile} signOut={signOut} />} />
+			<Route exact path="/movies" render={() => <MoviesMain token={token} profile={profile} signOut={signOut} />} />
+		</Switch>
+	);
 }
 
 export default App;

@@ -1,0 +1,112 @@
+@import 'mixins';
+
+.header {
+  @include header-padding;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  width: 100vw;
+  background: white;
+  z-index: 2;
+  transition: all 0.2s ease-in-out;
+  border-bottom: 2px solid white;
+
+  @media only screen and (max-height: 750px) {
+    height: 100px;
+  }
+
+  &--small {
+    height: 70px;
+
+    &.header--scrolled {
+      border-bottom: 2px solid $light-grey;
+    }
+  }
+
+  &--small &__title > .text {
+    font-size: 20px !important;
+
+    @media only screen and (max-width: 350px) {
+      font-size: 16px !important;
+    }
+  }
+
+  &--small &__title {
+    &__number {
+      width: 25px;
+      height: 25px;
+      min-width: 25px;
+      margin-right: 10px;
+
+      > .text {
+        font-size: 13px;
+      }
+    }
+  }
+
+  &__avatar-container {
+    margin-left: auto;
+
+    > .avatar {
+      transition: all 0.2s ease-in-out;
+      margin-left: auto;
+    }
+  }
+
+  &--small .avatar {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  &--small {
+    .playlist__progress__text {
+      opacity: 0;
+    }
+  }
+
+  .szh-menu {
+    transform: translateX(-20px);
+  }
+
+  > svg {
+    height: 50px;
+    width: auto;
+    transition: height 0.2s ease-in-out;
+  }
+
+  &--small {
+    > svg {
+      height: 40px;
+    }
+  }
+
+  &__title {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+
+    > .text {
+      transition: font-size 0.2s ease-in-out;
+    }
+
+    &__number {
+      margin-right: 20px;
+      background: $text;
+      border-radius: 50%;
+      width: 40px;
+      min-width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease-in-out;
+
+      > .text {
+        transition: font-size 0.2s ease-in-out;
+      }
+    }
+  }
+}
