@@ -3,7 +3,6 @@ import '@szhsin/react-menu/dist/index.css';
 import '@szhsin/react-menu/dist/transitions/slide.css';
 import { useScrollPosition } from '@n8tb1t/use-scroll-position';
 import { useBooleanState } from 'webrix/hooks';
-import _throttle from 'lodash.throttle';
 import cx from 'classnames';
 import { useMediaQuery } from 'react-responsive';
 import { ReactComponent as Logo } from '../../../assets/images/logo-beta.svg';
@@ -17,11 +16,15 @@ export default function Header({ stage, title, profile, signOut }) {
 	
 	const { value: small, setFalse: setLarge, setTrue: setSmall } = useBooleanState(false);
 	
-	useScrollPosition(_throttle(({ currPos: { y } }) => {
-		if (y > -(isMobile ? 10 : 30)) { return void setLarge(); }
+	useScrollPosition(({ currPos: { y } }) => {
+		const isLarge = y > -(isMobile ? 10 : 30);
+		
+		if (isLarge && !small) { return; }
+		
+		if (isLarge) { return void setLarge(); }
 		
 		setSmall();
-	}, 500));
+	});
 	
 	return (
 		<div className={cx('header', { 'header--small': small || isMobile, 'header--scrolled': small })}>
