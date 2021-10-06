@@ -20,7 +20,7 @@ async function getToken({ profile: profileProp, setToken, setProfile, authProps 
 		headers: { 'content-type': 'application/x-www-form-urlencoded' },
 		data: queryString.stringify({
 			...authProps,
-			client_id: '581af23d72b04cf19b00ccdf5fcc7bcf'
+			client_id: CONFIG.SPOTIFY_CLIENT_ID
 		}),
 		url: 'https://accounts.spotify.com/api/token'
 	};
@@ -137,7 +137,7 @@ function App() {
 		const codeChallenge = await generateCodeChallengeFromVerifier(codeVerifier);
 		
 		window.location.href = 'https://accounts.spotify.com/authorize?response_type=code'
-			+ `&client_id=581af23d72b04cf19b00ccdf5fcc7bcf`
+			+ `&client_id=${CONFIG.SPOTIFY_CLIENT_ID}`
 			+ `&redirect_uri=${CONFIG.REDIRECT_URL}`
 			+ '&scope=playlist-modify-private playlist-read-private playlist-modify-public playlist-read-collaborative'
 			+ `&state=${codeVerifier}`
