@@ -9,7 +9,7 @@
   width: 100vw;
   background: white;
   z-index: 2;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.2s ease-in-out;
   border-bottom: 2px solid white;
 
   @media only screen and (max-height: 750px) {
@@ -70,10 +70,11 @@
   }
 
   > svg {
-    height: 50%;
+    height: 50px;
     width: auto;
-    max-height: 80px;
+    transition: height 0.2s ease-in-out;
   }
+
   &--small {
     > svg {
       height: 40px;
