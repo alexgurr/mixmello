@@ -63,3 +63,20 @@ body > div[class*="css-"] {
     }
   }
 }
+
+.noty_theme__metroui {
+  border-radius: 6px !important;
+  box-shadow: none;
+}
+
+.noty_theme__metroui.noty_type__warning {
+  background: white;
+  border: 2px solid $text;
+  color: $text;
+}
+
+.noty_theme__metroui.noty_type__error {
+  background: white;
+  border: 2px solid $text;
+  color: $danger;
+}

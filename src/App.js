@@ -10,6 +10,7 @@ import Main from './pages/Main';
 import getUserProfile from './common/api/getUserProfile';
 import { Avatar, Button, Modal, Text } from './common/components';
 import postEvent from './common/utils/postEvent';
+import notify from './common/utils/notify';
 import CONFIG from './config';
 import './styles/_app.scss';
 
@@ -40,8 +41,27 @@ function App() {
 	const [profile, setProfile] = useState(storedProfile ? JSON.parse(storedProfile) : null);
 	const { value: confirmAuth, toggle: toggleConfirmAuth } = useBooleanState();
 	const [token, setToken] = useState(null);
-	const { '?code': spotifyAuthCode, state: spotifyState } = queryString.parse(window.location.search);
+	const {
+		'?code': spotifyAuthCode,
+		'?error': spotifyConnectError,
+		state: spotifyState,
+	} = queryString.parse(window.location.search);
 	const history = useHistory();
+	
+	useEffect(() => {
+		if (!spotifyConnectError) { return; }
+		
+		if (spotifyConnectError === 'access_denied') {
+			history.push('/');
+			
+			return void notify({
+				text: 'It looks like you cancelled connecting to Spotify. Why don\'t you give it another try?',
+				type: 'warning'
+			});
+		}
+		
+		setError(true);
+	}, [spotifyConnectError]);
 	
 	useEffect(() => {
 		const refreshToken = localStorage.getItem('spotify-token');

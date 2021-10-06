@@ -1,11 +1,12 @@
 import Noty from 'noty';
 
-export default function notify({ isSuccess, text }) {
+export default function notify({ type = 'error', text }) {
 	new Noty({
 		theme: 'metroui',
 		text,
-		type: isSuccess ? 'success' : 'error',
+		type: type,
 		timeout: 3000,
-		layout: 'bottomRight'
+		layout: 'bottomRight',
+		progressBar: false
 	}).show();
 }
