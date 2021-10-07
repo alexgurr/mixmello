@@ -17,7 +17,7 @@ export default function Footer() {
 							<Icon colour="white" name="fa-twitter" brand />
 							<span style={{ display: 'none' }}>twitter</span>
 						</a>
-						<a href="https://www.github.com/alexgurr" target="_blank" rel="noreferrer">
+						<a href="https://github.com/alexgurr/mixmello" target="_blank" rel="noreferrer">
 							<Icon colour="white" name="fa-github" brand />
 							<span style={{ display: 'none' }}>github</span>
 						</a>
