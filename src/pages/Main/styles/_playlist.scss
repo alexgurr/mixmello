@@ -10,6 +10,13 @@ $small-rows: 950px;
   flex-direction: column;
   flex: 1;
 
+  @media only screen and (max-width: $mobile-width) {
+    .pagination {
+      width: 100vw;
+      margin-left: -20px;
+    }
+  }
+
   &__settings {
     margin-top: 30px;
     margin-bottom: 30px;
@@ -26,7 +33,13 @@ $small-rows: 950px;
     align-items: center;
 
     @media only screen and (max-width: $mobile-width) {
+      flex-direction: column;
+      align-items: flex-start;
       margin-bottom: 20px !important;
+
+      > h2 {
+        margin-bottom: 20px;
+      }
     }
   }
 

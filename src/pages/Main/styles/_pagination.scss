@@ -3,16 +3,35 @@
 .pagination {
   display: flex;
   align-items: center;
+  flex: 1;
+  justify-content: flex-end;
+
+  @media only screen and (max-width: $mobile-width) {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  &__numbers {
+    max-width: calc(100% - 100px);
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(15px, 20px));
+    grid-auto-rows: auto;
+  }
 
   &__number {
+    text-align: center;
     color: $text !important;
-    margin-right: 10px;
     cursor: pointer;
     font-size: 18px;
     transition: transform 0.1s ease-in-out;
     will-change: auto;
     width: 15px;
     line-height: 14px;
+
+    &:focus {
+      text-decoration: none;
+    }
 
     &:hover {
       color: $text !important;
@@ -24,10 +43,6 @@
       pointer-events: none;
       transform: scale(1.2);
       padding: 0;
-    }
-
-    &:last-of-type {
-      margin-right: 0;
     }
   }
 }

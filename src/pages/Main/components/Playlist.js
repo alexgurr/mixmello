@@ -327,7 +327,7 @@ export default function Playlist({ token, playlist, profileId, onReset, tracks, 
 					/>
 				))}
 				<Pagination
-					className="ml-auto mt-10"
+					className="mt-10"
 					page={page}
 					nextPage={nextPage}
 					previousPage={previousPage}

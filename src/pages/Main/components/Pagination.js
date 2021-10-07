@@ -17,7 +17,6 @@ export default function Pagination({
 		window.scrollTo({ top: 0 });
 	}, [page])
 	
-	
 	if (totalPages === 1) { return null; }
 	
 	const onSpecificPage = number => () => {
@@ -27,14 +26,16 @@ export default function Pagination({
 	return (
 		<div className={cx('pagination', className)}>
 			<Button disabled={atFloor} type="icon-only" icon="fa-chevron-left" onClick={previousPage} iconSize={20} />
-			{[...new Array(totalPages)].map((_, index) => (
-				<a
-					onClick={onSpecificPage(index + 1)}
-					className={cx('pagination__number', { 'pagination__number--current': page === index + 1 })}
-				>
-					{index + 1}
-				</a>
-			))}
+			<div className="pagination__numbers">
+				{[...new Array(totalPages)].map((_, index) => (
+					<a
+						onClick={onSpecificPage(index + 1)}
+						className={cx('pagination__number', { 'pagination__number--current': page === index + 1 })}
+					>
+						{index + 1}
+					</a>
+				))}
+			</div>
 			<Button disabled={atCeiling} type="icon-only" icon="fa-chevron-right" onClick={nextPage} iconSize={20} />
 		</div>
 	)
