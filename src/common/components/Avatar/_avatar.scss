@@ -1,0 +1,27 @@
+@import 'vars';
+
+.avatar {
+  background: $mid-grey;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  > .icon {
+    color: $dark-grey;
+  }
+
+  &--large {
+    height: 75px;
+    width: 75px;
+  }
+
+  > img {
+    width: 100%;
+    height: 100%;
+  }
+}

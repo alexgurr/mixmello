@@ -1,0 +1,15 @@
+@import 'vars';
+
+.app {
+  &__reauth-modal {
+    &__content {
+      display: flex;
+      align-items: center;
+      margin-bottom: 40px;
+
+      > img {
+        border-radius: 50px;
+      }
+    }
+  }
+}

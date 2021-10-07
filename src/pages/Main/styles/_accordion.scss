@@ -1,0 +1,47 @@
+@import 'vars';
+
+.accordion {
+  width: calc(100% + 40px);
+  margin-left: -20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  transition: background-color 300ms ease-in-out;
+  border-radius: 8px;
+
+  @media only screen and (max-width: $mobile-width) {
+    width: calc(100% + 20px);
+    margin-left: -10px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  &--open {
+    background: $light-grey;
+  }
+
+  &__child {
+    padding-bottom: 20px;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    height: 60px;
+    justify-content: space-between;
+
+    &__icon {
+      width: 40px;
+      height: 40px;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+  }
+}

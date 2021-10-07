@@ -1,0 +1,59 @@
+@import 'vars';
+
+.modal {
+  &__content {
+    overflow-y: auto;
+    padding: 1px;
+  }
+
+  &__footer {
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+
+    > *:first-child {
+      margin-left: auto;
+
+      &:not(:last-child) {
+        margin-right: 20px;
+      }
+    }
+  }
+
+  &__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 40px;
+
+    > .icon {
+      font-size: 30px;
+      cursor: pointer;
+      margin-top: 9px;
+      transition: transform 0.2s ease-in-out;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+
+      @media only screen and (max-width: $mobile-width) {
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+.rodal-dialog {
+  border-radius: 12px !important;
+  padding: 30px !important;
+  display: flex;
+  flex-direction: column;
+  height: fit-content !important;
+  max-height: calc(100vh - 80px);
+
+  @media only screen and (max-width: $mobile-width) {
+    width: calc(100vw - 20px) !important;
+    padding: 30px 19px !important;
+    max-height: calc(100vh - 20px);
+  }
+}

@@ -1,0 +1,57 @@
+@import 'vars';
+
+.error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  padding-left: 40px;
+  padding-right: 40px;
+
+  @media only screen and (max-width: $mobile-width) {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  > svg {
+    max-width: 175px;
+
+    @media only screen and (max-width: $mobile-width) {
+      width: 100px;
+    }
+  }
+
+  > .text {
+    max-width: 600px;
+    text-align: center;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+
+    > button {
+      width: 200px;
+    }
+
+    @media only screen and (max-width: $mobile-width) {
+      flex-direction: column;
+
+      > button {
+        width: 100%;
+        max-width: 300px;
+      }
+    }
+
+    > *:first-child:not(:last-child) {
+      margin-right: 30px;
+
+      @media only screen and (max-width: $mobile-width) {
+        margin-right: 0;
+        margin-bottom: 20px;
+      }
+    }
+  }
+}

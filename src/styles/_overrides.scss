@@ -1,0 +1,83 @@
+@import 'vars';
+
+// Tooltips
+.__react_component_tooltip.show {
+  opacity: 1 !important;
+  font-size: 12px !important;
+  color: $text !important;
+  font-weight: 400 !important;
+  max-width: 400px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: left;
+  //display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-width: 2px;
+
+  display: inline-block;
+  width: auto;
+  word-break: break-word;
+
+  @media only screen and (max-width: 420px) {
+    max-width: calc(100vw - 20px);
+  }
+}
+
+.__react_component_tooltip.place-top::before,
+.__react_component_tooltip.place-bottom::before {
+  border-left: 11px solid transparent !important;
+  border-right: 11px solid transparent !important;
+  margin-left: -11px !important;
+}
+
+.__react_component_tooltip.place-left::before,
+.__react_component_tooltip.place-right::before {
+  border-top: 8px solid transparent !important;
+  border-bottom: 8px solid transparent !important;
+  right: -8px !important;
+  margin-top: -7px !important;
+}
+
+// React-select dropdown menu
+body > div[class*="css-"] {
+  z-index: 9999;
+}
+
+// Action Menu
+.szh-menu {
+  box-shadow: rgba(0, 0, 0, 0.05) 0 6px 24px 0, rgba(0, 0, 0, 0.08) 0 0 0 1px;
+  border-radius: 12px;
+
+  &__item {
+    height: 50px;
+
+    > .icon {
+      font-size: 20px !important;
+      margin-right: 10px;
+      width: 20px !important;
+      color: $text;
+    }
+
+    &--active {
+      background-color: $primary !important;
+    }
+  }
+}
+
+.noty_theme__metroui {
+  border-radius: 6px !important;
+  box-shadow: none;
+}
+
+.noty_theme__metroui.noty_type__warning {
+  background: white;
+  border: 2px solid $text;
+  color: $text;
+}
+
+.noty_theme__metroui.noty_type__error {
+  background: white;
+  border: 2px solid $text;
+  color: $danger;
+}

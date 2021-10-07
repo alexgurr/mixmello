@@ -1,0 +1,40 @@
+// Node module styles
+@import '~animate.css/animate.css';
+@import '~react-toggle/style.css';
+@import '~rodal/lib/rodal.css';
+@import '~noty/lib/noty.css';
+@import '~noty/lib/themes/metroui.css';
+
+// Custom scss files
+@import 'vars';
+@import './_typography';
+@import './_animations';
+@import './_overrides';
+@import './utils/_index';
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  width: 100vw;
+  overflow-x: hidden;
+  overflow-y: overlay;
+}
+
+body,
+html,
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+* {
+  outline-color: $text;
+  box-sizing: border-box;
+}
+
+[data-whatintent='mouse'] *:focus,
+[data-whatintent='touch'] *:focus {
+  outline: none;
+}
