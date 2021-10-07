@@ -5,6 +5,7 @@ import Header from './Header';
 import { ReactComponent as Waves } from '../../../assets/images/wave.svg';
 import getPlaylistTracks from '../api/getPlaylistTracks';
 import Success from './Success';
+import '../styles/_main.scss';
 
 const STAGES = [
 	'Find a playlist',
@@ -36,7 +37,7 @@ export default function Main({ token, profile, signOut }) {
 	};
 	
 	return (
-		<div style={{ display: 'flex', flex: 1, flexDirection: 'column' }}>
+		<div className="main">
 			<Header
 				stage={stage}
 				title={STAGES[stage - 1]}
