@@ -68,7 +68,7 @@ function Track({ id, name, albumName, albumUrl, fallback, error, loading, noMatc
 								{fallback ? <Icon name="fa-binoculars" /> : null}
 							</div>
 							{albumName && <Text>{albumName}</Text>}
-							<div className="no-fade mt-20">
+							<div className="no-fade mt-15">
 								<OpenOnSpotifyButton id={id} type="track" buttonType="secondary" small action="Play" />
 							</div>
 						</div>
