@@ -17,7 +17,7 @@ export default function Main({ token, profile, signOut }) {
 	const [stage, setStage] = useState(1);
 	const [currentPlaylist, setPlaylist] = useState(null);
 	const [tracks, setTracks] = useState([]);
-	const [playlistUrl, setPlaylistUrl] = useState('');
+	const [playlistId, setPlaylistId] = useState('');
 	
 	const onReset = () => {
 		setPlaylist(null);
@@ -31,8 +31,8 @@ export default function Main({ token, profile, signOut }) {
 		setStage(2);
 	};
 	
-	const onSuccess = (newPlaylistUrl) => {
-		setPlaylistUrl(newPlaylistUrl);
+	const onSuccess = (newPlaylistId) => {
+		setPlaylistId(newPlaylistId);
 		setStage(3);
 	};
 	
@@ -72,7 +72,7 @@ export default function Main({ token, profile, signOut }) {
 			}
 			{
 				stage === 3
-					? <Success playlistUrl={playlistUrl} onReset={onReset} />
+					? <Success playlistId={playlistId} onReset={onReset} />
 					: null
 			}
 			<Waves className="mt-auto" />

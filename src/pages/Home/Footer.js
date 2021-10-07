@@ -22,7 +22,7 @@ export default function Footer() {
 							<span style={{ display: 'none' }}>github</span>
 						</a>
 						<a href="https://www.alexgurr.com" target="_blank" rel="noreferrer">
-							<Icon colour="white" name="fa-cloud" />
+							<Icon colour="white" name="fa-globe-americas" />
 							<span style={{ display: 'none' }}>website</span>
 						</a>
 					</div>

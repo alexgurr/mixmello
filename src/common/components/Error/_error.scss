@@ -7,6 +7,10 @@
   margin: auto;
   padding-left: 40px;
   padding-right: 40px;
+  background: white;
+  height: 100vh;
+  width: 100vw;
+  justify-content: center;
 
   @media only screen and (max-width: $mobile-width) {
     padding-left: 20px;

@@ -14,7 +14,7 @@ export default function Error({ title, tryAgainProps }) {
 				</Button>
 				{tryAgainProps && <Button {...tryAgainProps}>Try Again</Button>}
 			</div>
-			<Text className="mt-50">
+			<Text className="mt-50 mb-0">
 				Keep seeing this? <a href="https://www.twitter.com/alexgurr" target="_blank" rel="noreferrer">Get In Touch</a>.
 			</Text>
 		</div>

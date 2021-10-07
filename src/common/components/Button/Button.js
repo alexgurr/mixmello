@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import { useEffect, useState } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 import Icon from '../Icon';
 import Tooltip from '../Tooltip';
 import './_button.scss';
@@ -13,7 +13,7 @@ const ICON_COLOUR_OVERRIDES = {
 	danger: 'white'
 };
 
-export default function Button({
+function Button({
 	type = DEFAULT_TYPE,
 	fullWidth,
 	children,
@@ -31,8 +31,9 @@ export default function Button({
 	dynamicWidth,
 	iconSize,
 	iconColour,
-	brandIcon
-}) {
+	brandIcon,
+	small
+}, ref) {
 	const supportedType = SUPPORTED_TYPES.includes(type);
 	
 	if (!supportedType) {
@@ -76,6 +77,7 @@ export default function Button({
 			text={tooltip}
 		>
 			<button
+				ref={ref}
 				disabled={busy || disabled || state}
 				className={cx(
 					'button',
@@ -84,7 +86,8 @@ export default function Button({
 						'button--full-width': fullWidth,
 						'button--icon': icon && !children && type !== 'icon-only',
 						'button--busy': busy || state,
-						'button--dynamic-width': dynamicWidth
+						'button--dynamic-width': dynamicWidth,
+						'button--small': small
 					},
 					className
 				)}
@@ -101,3 +104,5 @@ export default function Button({
 		</Tooltip>
 	);
 }
+
+export default forwardRef(Button);

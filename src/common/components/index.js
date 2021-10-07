@@ -7,3 +7,4 @@ export { default as Tooltip } from './Tooltip';
 export { default as Modal } from './Modal';
 export { default as Avatar } from './Avatar';
 export { default as Error } from './Error';
+export { default as OpenOnSpotifyButton } from './OpenOnSpotifyButton';

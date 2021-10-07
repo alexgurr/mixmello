@@ -4,7 +4,7 @@ import { useMediaQuery } from 'react-responsive';
 import { useBooleanState } from 'webrix/hooks';
 import { createPortal } from 'react-dom';
 import AutosizeInput from 'react-input-autosize';
-import { Button, Icon, Text, Toggle } from 'common/components';
+import { Button, Icon, OpenOnSpotifyButton, Text, Toggle } from 'common/components';
 import searchRelatedTracks from '../api/searchRelatedTracks';
 import createRemixPlaylist from '../api/createRemixPlaylist';
 import Accordion from './Accordion';
@@ -29,11 +29,11 @@ function AlbumArt({ url, loading, previewUrl, error }) {
 		<div className="playlist__row__track__art">
 			{!loading && !error && !url ? <Icon size={20} name="fa-music" /> : null}
 			{loading ? <Icon name="fa-circle-notch" spin /> : null}
-			{error ? <Icon name="fa-times" colour="#FF453A" /> : null}
+			{error ? <Icon name="fa-times" size={30} colour="#FF453A" /> : null}
 			{url && !loading ? <img src={url} alt="album-art" /> : null}
 			{previewUrl && (
 				<div className="playlist__row__track__art__audio">
-					<Icon size={17} colour="white" name={playing ? 'fa-pause' : 'fa-play'} onClick={togglePlaying} />
+					<Icon size={20} colour="white" name={playing ? 'fa-pause' : 'fa-play'} onClick={togglePlaying} />
 				</div>
 			)}
 			{
@@ -49,9 +49,9 @@ function AlbumArt({ url, loading, previewUrl, error }) {
 	);
 }
 
-function Track({ name, albumName, albumUrl, fallback, error, loading, noMatch, previewUrl }) {
+function Track({ id, name, albumName, albumUrl, fallback, error, loading, noMatch, previewUrl, fade }) {
 	return (
-		<div className="playlist__row__track">
+		<div className={cx('playlist__row__track', { 'playlist__row__track--fade': error || noMatch || fade })}>
 			<AlbumArt url={albumUrl} loading={loading} previewUrl={previewUrl} error={error} />
 			{
 				loading || noMatch || error
@@ -64,10 +64,13 @@ function Track({ name, albumName, albumUrl, fallback, error, loading, noMatch, p
 					: (
 						<div className="playlist__row__track__content">
 							<div className="playlist__row__track__content__name">
-								<p>{name}</p>
+								<Text bold>{name}</Text>
 								{fallback ? <Icon name="fa-binoculars" /> : null}
 							</div>
-							{albumName && <p>{albumName}</p>}
+							{albumName && <Text>{albumName}</Text>}
+							<div className="no-fade mt-20">
+								<OpenOnSpotifyButton id={id} type="track" buttonType="secondary" small action="Play" />
+							</div>
 						</div>
 					)
 			}
@@ -104,6 +107,7 @@ function RemixedTrack({ selection = [], trackId, loading, noMatch, fallback, err
 	return (
 		<>
 			<Track
+				id={track?.id}
 				name={track?.name}
 				albumName={track?.album.name}
 				albumUrl={track?.album?.images?.[0]?.url}
@@ -151,39 +155,43 @@ function TrackRow({ track, remixListMap, trackListMap, isSmall, onRetryTrack }) 
 	const error = remixedTrack?.error;
 	
 	return (
-		<div className="playlist__row-container">
-			<div
-				className={cx(
-					'playlist__row',
-					{
-						'playlist__row--empty': noMatch,
-						'playlist__row--loading': loadingRemixTrack,
-						'playlist__row--error': error,
-						'playlist__row--disabled': !value && !noMatch && !loadingRemixTrack
-					}
-				)}
-				key={track.id}
-			>
-				<CheckBox
-					onChange={onChangeEnabled}
-					className='playlist__row__checkbox mr-40'
-					checked={loadingRemixTrack || noMatch ? false : value}
-					disabled={noMatch || loadingRemixTrack}
-				/>
-				<Track name={track.name} albumName={track.album?.name} albumUrl={track.album?.images?.[0]?.url} />
-				<div className="playlist__row__arrow">
-					<Icon name={isSmall ? 'fa-chevron-down' : 'fa-long-arrow-alt-right'} />
-				</div>
-				<RemixedTrack
-					selection={remixedTrack?.items}
-					fallback={remixedTrack?.fallback}
-					error={error}
-					loading={loadingRemixTrack}
-					noMatch={noMatch}
-					trackListMap={trackListMap}
-					trackId={track.id}
-				/>
+		<div
+			className={cx(
+				'playlist__row',
+				{
+					'playlist__row--empty': noMatch,
+					'playlist__row--loading': loadingRemixTrack,
+					'playlist__row--error': error,
+					'playlist__row--disabled': !value && !noMatch && !loadingRemixTrack
+				}
+			)}
+			key={track.id}
+		>
+			<CheckBox
+				onChange={onChangeEnabled}
+				className='playlist__row__checkbox mr-40'
+				checked={loadingRemixTrack || noMatch ? false : value}
+				disabled={noMatch || loadingRemixTrack}
+			/>
+			<Track
+				fade={error || noMatch}
+				id={track?.id}
+				name={track.name}
+				albumName={track.album?.name}
+				albumUrl={track.album?.images?.[0]?.url}
+			/>
+			<div className="playlist__row__arrow">
+				<Icon name={isSmall ? 'fa-chevron-down' : 'fa-long-arrow-alt-right'} />
 			</div>
+			<RemixedTrack
+				selection={remixedTrack?.items}
+				fallback={remixedTrack?.fallback}
+				error={error}
+				loading={loadingRemixTrack}
+				noMatch={noMatch}
+				trackListMap={trackListMap}
+				trackId={track.id}
+			/>
 			{error && (
 				<Button type="secondary" icon="fa-sync" iconSize={15} onClick={onRetryTrack(track)}>
 					Try Again
@@ -198,7 +206,7 @@ export default function Playlist({ token, playlist, profileId, onReset, tracks, 
 	const [name, setName] = useState(`${playlist.name} vol. 2`);
 	const [hideProgress, setProgressHidden] = useState(false);
 	const isMobile = useMediaQuery({ maxWidth: 700 });
-	const isSmall = useMediaQuery({ maxWidth: 950 });
+	const isSmall = useMediaQuery({ maxWidth: 1030 });
 	const totalPages = Math.ceil(tracks.length / MAX_RESULTS);
 	const {
 		number: page,
@@ -259,7 +267,7 @@ export default function Playlist({ token, playlist, profileId, onReset, tracks, 
 			
 			postEvent('playlist-saved');
 			
-			onSuccess(`spotify:playlist:${newPlaylistId}`);
+			onSuccess(newPlaylistId);
 		} catch {
 			setNotSaving();
 		}
@@ -318,6 +326,7 @@ export default function Playlist({ token, playlist, profileId, onReset, tracks, 
 				</div>
 				{paginatedTracks.map(track => (
 					<TrackRow
+						key={track.id}
 						trackListMap={trackListMap}
 						track={track}
 						remixListMap={remixListMap}

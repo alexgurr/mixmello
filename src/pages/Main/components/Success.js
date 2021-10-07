@@ -1,11 +1,7 @@
-import { Button, Text } from 'common/components';
+import { Button, OpenOnSpotifyButton, Text } from 'common/components';
 import '../styles/_success.scss';
 
-export default function Success({ playlistUrl, onReset }) {
-	const onOpen = () => {
-		window.open(playlistUrl);
-	};
-	
+export default function Success({ playlistId, onReset }) {
 	return (
 		<div className="success">
 			<div className="success__animation">
@@ -18,9 +14,7 @@ export default function Success({ playlistUrl, onReset }) {
 				<Text subHeading className="mt-0">We've gone and created your new playlist 🎉</Text>
 				<div className="success__actions">
 					<Button onClick={onReset} type="secondary">Remix Another Playlist</Button>
-					<Button icon="fa-external-link-alt" iconSize={16} onClick={onOpen} >
-						Open In Spotify
-					</Button>
+					<OpenOnSpotifyButton id={playlistId} />
 				</div>
 			</div>
 		
