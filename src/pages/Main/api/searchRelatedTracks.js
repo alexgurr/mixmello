@@ -17,8 +17,6 @@ async function search({ token, query }) {
 export default async ({ token, track, fallback = false }) => {
 	if (!token) { return; }
 	
-	// return { items: [], error: true };
-	
 	const artistName = track.artists?.[0]?.name || '';
 	const trackName = track.name;
 	const trackId = track.id;
