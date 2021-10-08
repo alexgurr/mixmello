@@ -62,20 +62,84 @@ $small-rows: 1030px;
     flex-direction: column;
     flex: 1;
     padding-top: 40px;
-    padding-bottom: 60px;
+    padding-bottom: 20px;
 
     @media only screen and (max-width: $mobile-width) {
-      padding-top: 10px;
+      padding-top: 20px;
     }
   }
 
   &__footer {
     display: flex;
-    align-items: center;
-    margin-left: auto;
+    justify-content: space-between;
+    position: sticky;
+    bottom: 0;
+    background: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 100%;
+    height: 70px;
 
-    > .button:first-of-type {
-      margin-right: 20px;
+    &--scrolled {
+      &::before {
+        content: '';
+        width: 100vw;
+        height: 2px;
+        background: $light-grey;
+        position: fixed;
+        left: 0;
+        bottom: 70px;
+
+        @media only screen and (max-width: $mobile-width) {
+          bottom: 132px;
+        }
+      }
+    }
+
+    @media only screen and (max-width: $mobile-width) {
+      height: 132px;
+      flex-direction: column;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      margin-left: -20px;
+    }
+
+    &__link {
+      margin-top: auto;
+      margin-bottom: auto;
+      display: flex;
+      align-items: center;
+
+      @media only screen and (max-width: $mobile-width) {
+        margin-bottom: 20px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      > .icon {
+        margin-top: 2px;
+        margin-left: 10px;
+      }
+    }
+
+    > div {
+      display: flex;
+      align-items: center;
+      margin-left: auto;
+
+      @media only screen and (max-width: $mobile-width) {
+        width: 100%;
+        margin-left: unset;
+        justify-content: center;
+
+        > .button {
+          min-width: 0 !important;
+        }
+      }
+
+      > .button:first-of-type {
+        margin-right: 20px;
+      }
     }
 
     @media only screen and (max-width: $mobile-width) {
@@ -139,10 +203,6 @@ $small-rows: 1030px;
     transition: background 0.1s ease-in-out;
     border: 2px solid $light-grey;
 
-    &:not(&--error) {
-      flex: 1;
-    }
-
     &--error {
       padding-right: 10px;
 
@@ -177,6 +237,10 @@ $small-rows: 1030px;
       width: 100%;
     }
 
+    @media only screen and (max-width: $mobile-width) {
+      padding: 20px;
+    }
+
     &--disabled {
       background: none;
     }
@@ -207,6 +271,10 @@ $small-rows: 1030px;
       @media only screen and (max-width: $small-rows) {
         margin: -15px -15px 10px auto;
       }
+
+      @media only screen and (max-width: $mobile-width) {
+        margin: -5px -5px 10px auto;
+      }
     }
 
     &__nav {
@@ -226,6 +294,11 @@ $small-rows: 1030px;
         > *:first-child:not(:last-child) {
           margin-right: 0;
         }
+      }
+
+      @media only screen and (max-width: $mobile-width) {
+        margin-bottom: -10px;
+        margin-right: -15px;
       }
     }
 
@@ -297,6 +370,14 @@ $small-rows: 1030px;
           width: calc(100% - 100px);
         }
 
+        @media only screen and (max-width: $mobile-width) {
+          width: calc(100% - 60px);
+        }
+
+        @media only screen and (max-width: 400px) {
+          width: calc(100% - 45px);
+        }
+
         &__name {
           display: flex;
           align-items: center;
@@ -334,6 +415,24 @@ $small-rows: 1030px;
         justify-content: center;
         overflow: hidden;
         position: relative;
+
+        @media only screen and (max-width: $mobile-width) {
+          height: 50px;
+          width: 50px;
+          min-height: 50px;
+          min-width: 50px;
+        }
+
+        @media only screen and (max-width: 400px) {
+          height: 30px;
+          width: 30px;
+          min-height: 30px;
+          min-width: 30px;
+
+          .icon {
+            font-size: 12px !important;
+          }
+        }
 
         @media only screen and (max-width: $small-rows) {
           margin-right: 15px;

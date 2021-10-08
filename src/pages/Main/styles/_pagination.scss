@@ -7,6 +7,7 @@
   justify-content: flex-end;
 
   @media only screen and (max-width: $mobile-width) {
+    flex: unset;
     width: 100%;
     justify-content: flex-start;
   }

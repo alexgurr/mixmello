@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import cx from 'classnames';
 import { useMediaQuery } from 'react-responsive';
 import { useBooleanState } from 'webrix/hooks';
@@ -13,6 +13,7 @@ import useNumberFlow from '../../../common/hooks/useNumberFlow';
 import '../styles/_playlist.scss';
 import Pagination from './Pagination';
 import postEvent from '../../../common/utils/postEvent';
+import Footer from './Footer';
 
 const MAX_RESULTS = 20;
 
@@ -220,6 +221,7 @@ export default function Playlist({ token, playlist, profileId, onReset, tracks, 
 	const [trackListMap] = useState(new Map());
 	const [remixListMap] = useState(new Map());
 	const [remixLastUpdated, onRemixUpdated] = useState(null);
+	const bottomRef = useRef();
 	
 	const handleTracks = async (retrievedTracks) => {
 		for (let track of retrievedTracks) {
@@ -344,13 +346,17 @@ export default function Playlist({ token, playlist, profileId, onReset, tracks, 
 					atFloor={atFloor}
 					totalPages={totalPages}
 					setPage={setPage}
+					ref={bottomRef}
 				/>
-				<div className="playlist__footer mt-60">
-					<Button onClick={onReset} type="secondary">Remix Another Playlist</Button>
-					<Button busy={saving} onClick={onSave} disabled={!name || remixListMap.size !== tracks.length}>
-						Save
-					</Button>
-				</div>
+				<Footer
+					tracks={tracks}
+					onReset={onReset}
+					onSave={onSave}
+					remixListMap={remixListMap}
+					saving={saving}
+					name={name}
+					bottomRef={bottomRef}
+				/>
 			</div>
 		</div>
 		</>
