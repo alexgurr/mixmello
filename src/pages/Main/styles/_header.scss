@@ -10,7 +10,6 @@
   background: white;
   z-index: 2;
   transition: all 0.2s ease-in-out;
-  border-bottom: 2px solid white;
 
   @media only screen and (max-height: 750px) {
     height: 100px;
@@ -20,7 +19,14 @@
     height: 70px;
 
     &.header--scrolled {
-      border-bottom: 2px solid $light-grey;
+      .playlist__progress,
+      .playlist__progress__bar {
+        height: 4px;
+      }
+
+      .playlist__progress {
+        bottom: -4px;
+      }
     }
   }
 
@@ -87,6 +93,8 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+    width: fit-content;
+    max-width: calc(100vw - 140px);
 
     > .text {
       transition: font-size 0.2s ease-in-out;

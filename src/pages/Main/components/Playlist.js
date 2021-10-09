@@ -10,10 +10,10 @@ import createRemixPlaylist from '../api/createRemixPlaylist';
 import Accordion from './Accordion';
 import CheckBox from '../../../common/components/CheckBox';
 import useNumberFlow from '../../../common/hooks/useNumberFlow';
-import '../styles/_playlist.scss';
 import Pagination from './Pagination';
 import postEvent from '../../../common/utils/postEvent';
 import Footer from './Footer';
+import '../styles/_playlist.scss';
 
 const MAX_RESULTS = 20;
 
@@ -205,7 +205,7 @@ function TrackRow({ track, remixListMap, trackListMap, isSmall, onRetryTrack }) 
 export default function Playlist({ token, playlist, profileId, onReset, tracks, onSuccess }) {
 	const { value: publicPlaylist, toggle: togglePublic } = useBooleanState();
 	const [name, setName] = useState(`${playlist.name} vol. 2`);
-	const [hideProgress, setProgressHidden] = useState(false);
+	const [finishedRemixing, setFinisheRemixing] = useState(false);
 	const isMobile = useMediaQuery({ maxWidth: 700 });
 	const isSmall = useMediaQuery({ maxWidth: 1030 });
 	const totalPages = Math.ceil(tracks.length / MAX_RESULTS);
@@ -233,7 +233,9 @@ export default function Playlist({ token, playlist, profileId, onReset, tracks, 
 		}
 	};
 	
-	useEffect(() => { handleTracks(tracks);	}, []);
+	useEffect(() => {
+		handleTracks(tracks);	},
+	[]);
 	
 	const onRetryTrack = track => async () => {
 		remixListMap.delete(track.id);
@@ -280,20 +282,20 @@ export default function Playlist({ token, playlist, profileId, onReset, tracks, 
 	useEffect(() => {
 		if (progressPercent !== 100) { return; }
 		
-		setTimeout(() => { setProgressHidden(true); }, 2000);
+		setTimeout(() => { setFinisheRemixing(true); }, 2000);
 	}, [remixLastUpdated])
 	
 	const header = document.querySelector('.header');
-	
 	const paginatedTracks = tracks.slice((page - 1) * MAX_RESULTS, page * MAX_RESULTS);
-
+	
 	return (
 		<>
-		{header && !hideProgress && createPortal(
+		{header && createPortal(
 			<div className="playlist__progress">
-				<span className="playlist__progress__bar" style={{ width: `${progressPercent.toFixed(0)}%` }} />
+				<span className="playlist__progress__bar" style={{ width: `${finishedRemixing ? '100' : progressPercent.toFixed(0)}%` }} />
 				<span className="playlist__progress__text">
-					<span className="playlist__progress__text__remixing">Remixing </span>{remixListMap.size} / {tracks.length}
+					<span className="playlist__progress__text__remixing">{finishedRemixing ? 'Found remixes for' : 'Remixing'} </span>
+					{`${finishedRemixing ? Array.from(remixListMap).filter(([_, { items }]) => items.length).length : remixListMap.size} / ${tracks.length} tracks`}
 				</span>
 			</div>,
 			header
@@ -337,6 +339,7 @@ export default function Playlist({ token, playlist, profileId, onReset, tracks, 
 						onRetryTrack={onRetryTrack}
 					/>
 				))}
+				<div id="bottom-anchor" ref={bottomRef} />
 				<Pagination
 					className="mt-10"
 					page={page}
@@ -346,7 +349,6 @@ export default function Playlist({ token, playlist, profileId, onReset, tracks, 
 					atFloor={atFloor}
 					totalPages={totalPages}
 					setPage={setPage}
-					ref={bottomRef}
 				/>
 				<Footer
 					tracks={tracks}

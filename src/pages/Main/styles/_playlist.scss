@@ -174,7 +174,7 @@ $small-rows: 1030px;
       display: block;
       height: 100%;
       background: $primary;
-      transition: width 0.2s ease-in-out;
+      transition: all 0.2s ease-in-out;
     }
 
     &__text {
@@ -251,6 +251,12 @@ $small-rows: 1030px;
 
       @media only screen and (max-width: $small-rows) {
         border-color: $light-grey;
+      }
+    }
+
+    &--empty:not(&--error) {
+      @media only screen and (max-width: $mobile-width) {
+        padding-bottom: 40px;
       }
     }
 

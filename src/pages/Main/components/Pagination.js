@@ -1,9 +1,9 @@
-import { forwardRef, useEffect } from 'react';
+import { useEffect } from 'react';
 import cx from 'classnames';
 import { Button } from 'common/components';
 import '../styles/_pagination.scss';
 
-function Pagination({
+export default function Pagination({
 	className,
 	page,
 	nextPage,
@@ -12,7 +12,7 @@ function Pagination({
 	atFloor,
 	totalPages,
 	setPage
-}, ref) {
+}) {
 	useEffect(() => {
 		window.scrollTo({ top: 0 });
 	}, [page])
@@ -24,7 +24,7 @@ function Pagination({
 	}
 	
 	return (
-		<div className={cx('pagination', className)} ref={ref}>
+		<div className={cx('pagination', className)}>
 			<Button disabled={atFloor} type="icon-only" icon="fa-chevron-left" onClick={previousPage} iconSize={20} />
 			<div className="pagination__numbers">
 				{[...new Array(totalPages)].map((_, index) => (
@@ -40,5 +40,3 @@ function Pagination({
 		</div>
 	)
 }
-
-export default forwardRef(Pagination);

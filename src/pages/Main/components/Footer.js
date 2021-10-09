@@ -28,8 +28,8 @@ function useOnScreen(ref, rootMargin = "0px") {
 }
 
 export default function Footer({ onReset, tracks, saving, onSave, remixListMap, name, bottomRef }) {
-	const onScreen = useOnScreen(bottomRef);
 	const isMobile = useMediaQuery({ maxWidth: 700 });
+	const onScreen = useOnScreen(bottomRef, isMobile ? '-100px' : void 0);
 	
 	const onScroll = to => () => {
 		if (to === 'top') {
