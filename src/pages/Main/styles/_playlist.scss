@@ -80,19 +80,25 @@ $small-rows: 1030px;
     width: 100%;
     height: 70px;
 
+    &::before {
+      content: '';
+      width: 100vw;
+      height: 2px;
+      background: $light-grey;
+      position: fixed;
+      left: 0;
+      bottom: 70px;
+      opacity: 0;
+      transition: opacity 0.2s ease-in-out;
+
+      @media only screen and (max-width: $mobile-width) {
+        bottom: 132px;
+      }
+    }
+
     &--scrolled {
       &::before {
-        content: '';
-        width: 100vw;
-        height: 2px;
-        background: $light-grey;
-        position: fixed;
-        left: 0;
-        bottom: 70px;
-
-        @media only screen and (max-width: $mobile-width) {
-          bottom: 132px;
-        }
+        opacity: 1;
       }
     }
 
