@@ -5,7 +5,7 @@ import { useScrollPosition } from '@n8tb1t/use-scroll-position';
 import { useBooleanState } from 'webrix/hooks';
 import cx from 'classnames';
 import { useMediaQuery } from 'react-responsive';
-import { ReactComponent as Logo } from '../../../assets/images/logo-beta.svg';
+import { ReactComponent as Logo } from '../../../assets/images/logo.svg';
 import { ReactComponent as LogoIcon } from '../../../assets/images/logo-icon.svg';
 import { Avatar, Icon, Text } from '../../../common/components';
 import '../styles/_header.scss';
