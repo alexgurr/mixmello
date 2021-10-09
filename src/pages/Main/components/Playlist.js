@@ -122,8 +122,8 @@ function RemixedTrack({ selection = [], trackId, loading, noMatch, fallback, err
 				selection.length > 1
 					? (
 						<div className="playlist__row__nav ml-30">
-							<Button iconSize={30} disabled={atFloor} onClick={previous} type="icon-only" icon="fa-arrow-alt-circle-left" />
-							<Button iconSize={30} disabled={atCeiling} onClick={next} type="icon-only" icon="fa-arrow-alt-circle-right" />
+							<Button iconSize={35} disabled={atFloor} onClick={previous} type="icon-only" icon="fa-arrow-alt-circle-left" />
+							<Button iconSize={35} disabled={atCeiling} onClick={next} type="icon-only" icon="fa-arrow-alt-circle-right" />
 						</div>
 					) : null
 			}

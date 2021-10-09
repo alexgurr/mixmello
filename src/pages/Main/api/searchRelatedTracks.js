@@ -1,8 +1,13 @@
 import axios from 'axios';
+import _uniqBy from 'lodash.uniqby';
 import getRemixSearchTerm from './utils/getRemixSearchTerm';
 
-function removeOriginalTrack(tracks, trackId) {
-	return tracks.filter(track => track.id !== trackId);
+function normaliseTracks(tracks, trackId) {
+	// It seems there are some duplicate tracks with different ids. Let's unique on album + track name
+	return _uniqBy(
+		tracks.filter(track => track.id !== trackId),
+		track => [track.album?.name, track.name].join()
+	);
 }
 
 async function search({ token, query }) {
@@ -27,12 +32,12 @@ export default async ({ token, track, fallback = false }) => {
 		const items = await search({ token, query: getRemixSearchTerm({ trackName, artistName }) });
 		
 		if (items.length || !fallback) {
-			return { items: removeOriginalTrack(items, trackId), fallback: false };
+			return { items: normaliseTracks(items, trackId), fallback: false };
 		}
 		
 		const fallbackItems = await search({ token, query: getRemixSearchTerm({ trackName }) });
 		
-		return { items: removeOriginalTrack(fallbackItems, trackId), fallback: true };
+		return { items: normaliseTracks(fallbackItems, trackId), fallback: true };
 	} catch {
 		return { items: [], error: true };
 	}
