@@ -139,7 +139,7 @@ function App() {
 		window.location.href = 'https://accounts.spotify.com/authorize?response_type=code'
 			+ `&client_id=${CONFIG.SPOTIFY_CLIENT_ID}`
 			+ `&redirect_uri=${CONFIG.REDIRECT_URL}`
-			+ '&scope=playlist-modify-private playlist-read-private playlist-modify-public playlist-read-collaborative'
+			+ '&scope=user-library-read playlist-modify-private playlist-read-private playlist-modify-public playlist-read-collaborative'
 			+ `&state=${codeVerifier}`
 			+ `&code_challenge=${codeChallenge}`
 			+ '&code_challenge_method=S256';
