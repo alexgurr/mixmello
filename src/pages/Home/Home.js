@@ -31,7 +31,7 @@ export default function Home({ onConnect }) {
 								<Text inverse subHeading bold>Choose a playlist</Text>
 							</div>
 							<Text inverse>
-								Search for a playlist across all your private and public playlists.
+								Search for a playlist across your private, public and liked songs playlists.
 							</Text>
 						</div>
 						<div className="home__getting-started__block">
