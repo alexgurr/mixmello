@@ -8,6 +8,7 @@ import getUserProfile from 'common/api/getUserProfile';
 import { Avatar, Button, Error, Modal, Text } from 'common/components';
 import postEvent from 'common/utils/postEvent';
 import notify from 'common/utils/notify';
+import store from './common/utils/store';
 import CONFIG from './config';
 import './styles/_app.scss';
 
@@ -31,12 +32,12 @@ async function getToken({ profile: profileProp, setToken, setProfile, authProps 
 	setToken(accessToken);
 	setProfile(profile);
 	
-	localStorage.setItem('spotify-token', refreshToken);
-	localStorage.setItem('spotify-profile', JSON.stringify(profile));
+	store.setItem('spotify-token', refreshToken);
+	store.setItem('spotify-profile', JSON.stringify(profile));
 }
 
 function App() {
-	const storedProfile = localStorage.getItem('spotify-profile');
+	const storedProfile = store.getItem('spotify-profile');
 	const [error, setError] = useState(false);
 	const [profile, setProfile] = useState(storedProfile ? JSON.parse(storedProfile) : null);
 	const { value: confirmAuth, toggle: toggleConfirmAuth } = useBooleanState();
@@ -64,7 +65,7 @@ function App() {
 	}, [spotifyConnectError]);
 	
 	useEffect(() => {
-		const refreshToken = localStorage.getItem('spotify-token');
+		const refreshToken = store.getItem('spotify-token');
 		
 		if (!refreshToken || spotifyAuthCode) { return; }
 		
@@ -109,6 +110,13 @@ function App() {
 					}
 				});
 				
+				if (!store.supported) {
+					notify({
+						text: 'It looks like you\'ve turned off cookies or local storage. This means you\'ll have to reconnect Spotify every time.',
+						type: 'warning'
+					});
+				}
+				
 				postEvent('connect-spotify');
 			} catch {
 				setError(true);
@@ -128,8 +136,8 @@ function App() {
 			toggleConfirmAuth();
 		}
 		
-		localStorage.removeItem('spotify-token');
-		localStorage.removeItem('spotify-profile');
+		store.removeItem('spotify-token');
+		store.removeItem('spotify-profile');
 	}
 	
 	const onConnect = async () => {
@@ -179,7 +187,7 @@ function App() {
 		);
 	}
 	
-	if ((spotifyAuthCode || localStorage.getItem('spotify-token')) && !token) { return null; }
+	if ((spotifyAuthCode || store.getItem('spotify-token')) && !token) { return null; }
 	
 	if (!token) {
 		return (
