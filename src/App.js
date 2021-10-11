@@ -159,7 +159,7 @@ function App() {
 			<Modal title="We Need To Confirm Your Identity" visible stayOpen width={600}>
 				<div className="app__reauth-modal">
 					<div className="app__reauth-modal__content">
-						<Avatar url={profile?.images?.[0].url} large />
+						<Avatar url={profile?.images?.[0]?.url} large />
 						<div className="app__reauth-modal__name ml-20">
 							<Text subHeading className="mb-5 mt-0">{profile?.display_name}</Text>
 							<a onClick={signOut}>Not you?</a>
