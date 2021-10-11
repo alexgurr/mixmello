@@ -18,6 +18,7 @@ export default function Main({ token, profile, signOut }) {
 	const [currentPlaylist, setPlaylist] = useState(null);
 	const [tracks, setTracks] = useState([]);
 	const [playlistId, setPlaylistId] = useState('');
+	const [acousticRemix, setAcousticRemix] = useState(false);
 	
 	const onReset = () => {
 		setPlaylist(null);
@@ -52,6 +53,8 @@ export default function Main({ token, profile, signOut }) {
 							onSelectPlaylist={setPlaylist}
 							onRemix={onRemix}
 							selectedPlaylist={currentPlaylist}
+							acousticRemix={acousticRemix}
+							setAcousticRemix={setAcousticRemix}
 						/>
 					)
 					: null
@@ -66,6 +69,7 @@ export default function Main({ token, profile, signOut }) {
 							profileId={profile.id}
 							onReset={onReset}
 							tracks={tracks}
+							acousticRemix={acousticRemix}
 						/>
 					)
 					: null

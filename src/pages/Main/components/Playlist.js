@@ -202,7 +202,7 @@ function TrackRow({ track, remixListMap, trackListMap, isSmall, onRetryTrack }) 
 	);
 }
 
-export default function Playlist({ token, playlist, profileId, onReset, tracks, onSuccess }) {
+export default function Playlist({ token, playlist, profileId, onReset, tracks, onSuccess, acousticRemix }) {
 	const { value: publicPlaylist, toggle: togglePublic } = useBooleanState();
 	const [name, setName] = useState(`${playlist.name} vol. 2`);
 	const [finishedRemixing, setFinisheRemixing] = useState(false);
@@ -225,7 +225,7 @@ export default function Playlist({ token, playlist, profileId, onReset, tracks, 
 	
 	const handleTracks = async (retrievedTracks) => {
 		for (let track of retrievedTracks) {
-			const remixed = await searchRelatedTracks({ token, track });
+			const remixed = await searchRelatedTracks({ token, track, acousticRemix });
 			
 			remixListMap.set(track.id, remixed);
 			
@@ -242,7 +242,7 @@ export default function Playlist({ token, playlist, profileId, onReset, tracks, 
 		
 		onRemixUpdated(Date.now());
 		
-		const remixed = await searchRelatedTracks({ token, track });
+		const remixed = await searchRelatedTracks({ token, track, acousticRemix });
 		
 		remixListMap.set(track.id, remixed);
 		
