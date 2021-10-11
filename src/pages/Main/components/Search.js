@@ -1,10 +1,10 @@
 import { useBooleanState } from 'webrix/hooks'
 import searchMusic from '../api/getPlaylists';
 import '../styles/_search.scss';
-import { Button, Dropdown, Text } from 'common/components';
+import { Button, Dropdown, Text, Toggle } from 'common/components';
 import { useMediaQuery } from 'react-responsive';
 
-export default function Search({ token, onSelectPlaylist, selectedPlaylist, onRemix }) {
+export default function Search({ token, onSelectPlaylist, selectedPlaylist, onRemix, setAcousticRemix }) {
 	const { value: busy, setTrue: setBusy, setFalse: setNotBusy } = useBooleanState();
 	const isMobile = useMediaQuery({ maxWidth: 700 });
 	
@@ -21,7 +21,7 @@ export default function Search({ token, onSelectPlaylist, selectedPlaylist, onRe
 	return (
 		<div className="search">
 			<Text subHeading>What playlist are we remixing?</Text>
-			<Text>You’ll be able to customise your remixes in the next step.</Text>
+			<Text className="mt-0 mb-30">You’ll be able to customise your remixes in the next step.</Text>
 			<div className="search__search-input">
 				<Dropdown
 					async
@@ -55,7 +55,8 @@ export default function Search({ token, onSelectPlaylist, selectedPlaylist, onRe
 					getOptionValue={option => option.id}
 				/>
 			</div>
-			<Button busy={busy} disabled={!selectedPlaylist} className="mt-40" onClick={handleRemix}>Remix Playlist</Button>
+			<Toggle className="mt-30" label="Remix with acoustic tracks" onChange={setAcousticRemix} />
+			<Button busy={busy} disabled={!selectedPlaylist} className="mt-10" onClick={handleRemix}>Remix Me A Playlist</Button>
 		</div>
 	);
 }
