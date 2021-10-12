@@ -1,7 +1,7 @@
 import { useBooleanState } from 'webrix/hooks'
 import searchMusic from '../api/getPlaylists';
 import '../styles/_search.scss';
-import { Button, Dropdown, Text, Toggle } from 'common/components';
+import { Button, Dropdown, Icon, Text, Toggle } from 'common/components';
 import { useMediaQuery } from 'react-responsive';
 
 export default function Search({ token, onSelectPlaylist, selectedPlaylist, onRemix, setAcousticRemix }) {
@@ -40,11 +40,15 @@ export default function Search({ token, onSelectPlaylist, selectedPlaylist, onRe
 						loadingIndicator: base => ({ ...base, marginLeft: 20, marginRight: 20 })
 					}}
 					getOptionLabel={option => (
-						<div style={{ display: 'flex', alignItems: 'center' }}>
+						<div className="search__option-label">
 							{
 								option.images?.[0]?.url
-									? <img alt="playlist-art" src={option.images?.[0]?.url} width={40} height={40} style={{ borderRadius: '50%', marginRight: 20 }} />
-									: <div style={{ width: '40px', height: '40px', background: 'lightgrey', borderRadius: '50%', marginRight: 20 }} />
+									? <img className="search__option-label__avatar" alt="playlist-art" src={option.images?.[0]?.url} />
+									: (
+										<div className="search__option-label__avatar">
+											<Icon name="fa-stream" size={15} />
+										</div>
+									)
 							}
 							<div>
 								<Text className="mt-0 mb-5"><strong>{option.name}</strong></Text>

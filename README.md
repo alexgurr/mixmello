@@ -36,7 +36,7 @@ Authentication: [`OAuth pkce`](https://oauth.net/2/pkce/)
 #### Required
 - `REDIRECT_URL`: Redirect URL Spotify will redirect the OAuth flow back to. This should be added to the list of whitelisted domains in the Spotify console. Defaults to `localhost:3000`
 
-- `SPOTIFY_CLIENT_ID`: The Client ID of your Spotify app. Your client should have the scopes: `playlist-modify-private` `playlist-read-private` `playlist-modify-public` `playlist-read-collaborative`
+- `SPOTIFY_CLIENT_ID`: The Client ID of your Spotify app. Your client should have the scopes: `user-library-read` `playlist-modify-private` `playlist-read-private` `playlist-modify-public` `playlist-read-collaborative`
 
 - `SASS_PATH`: This should be set to **src/styles** or the SCSS import resolution will fail
 

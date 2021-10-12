@@ -7,7 +7,7 @@ export default function Footer() {
 		<div className="footer">
 			<LogoIcon />
 			<div className="footer__content">
-				<div style={{ display: 'flex', justifyContent: 'space-between' }}>
+				<div className="footer__content__links">
 					<div className="footer__content__list" >
 						<a href="https://www.privacypolicies.com/generic/" target="_blank" rel="noreferrer">Privacy</a>
 						<a href="https://www.twitter.com/alexgurr" target="_blank" rel="noreferrer">Contact Us</a>
@@ -15,15 +15,15 @@ export default function Footer() {
 					<div className="footer__content__list" >
 						<a href="https://www.twitter.com/alexgurr" target="_blank" rel="noreferrer">
 							<Icon colour="white" name="fa-twitter" brand />
-							<span style={{ display: 'none' }}>twitter</span>
+							<span className="footer__content__list__accessible">twitter</span>
 						</a>
 						<a href="https://github.com/alexgurr/mixmello" target="_blank" rel="noreferrer">
 							<Icon colour="white" name="fa-github" brand />
-							<span style={{ display: 'none' }}>github</span>
+							<span className="footer__content__list__accessible">github</span>
 						</a>
 						<a href="https://www.alexgurr.com" target="_blank" rel="noreferrer">
 							<Icon colour="white" name="fa-globe-americas" />
-							<span style={{ display: 'none' }}>website</span>
+							<span className="footer__content__list__accessible">website</span>
 						</a>
 					</div>
 				</div>
