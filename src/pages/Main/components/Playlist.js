@@ -293,17 +293,21 @@ export default function Playlist({ token, playlist, profileId, onReset, tracks, 
 		{header && createPortal(
 			<div className="playlist__progress">
 				<span className="playlist__progress__bar" style={{ width: `${finishedRemixing ? '100' : progressPercent.toFixed(0)}%` }} />
-				<span className="playlist__progress__text">
-					<span className="playlist__progress__text__remixing">{finishedRemixing ? 'Found remixes for' : 'Remixing'} </span>
-					{`${finishedRemixing ? Array.from(remixListMap).filter(([_, { items }]) => items.length).length : remixListMap.size} / ${tracks.length} tracks`}
-				</span>
+				{
+					tracks.length ? (
+						<span className="playlist__progress__text">
+							<span className="playlist__progress__text__remixing">{finishedRemixing ? 'Found remixes for' : 'Remixing'} </span>
+							{`${finishedRemixing ? Array.from(remixListMap).filter(([_, { items }]) => items.length).length : remixListMap.size} / ${tracks.length} tracks`}
+						</span>
+					) : null
+				}
 			</div>,
 			header
 		)}
 		<div className="playlist">
 			<div className="playlist__inner">
 				<AutosizeInput
-					className="playlist__name"
+					className={cx('playlist__name', { 'mb-40': !tracks.length })}
 					name="playlist-name"
 					value={name}
 					placeholder="Playlist name"
@@ -312,10 +316,12 @@ export default function Playlist({ token, playlist, profileId, onReset, tracks, 
 						setName(value);
 					}}
 				/>
-				<Accordion title="Settings" className="playlist__settings">
-					{/*<Toggle label="Wider searching when no remixes are found (results will vary)" />*/}
-					<Toggle label="Make your remixed playlist public" onChange={togglePublic} />
-				</Accordion>
+				{tracks.length ? (
+					<Accordion title="Settings" className="playlist__settings">
+						{/*<Toggle label="Wider searching when no remixes are found (results will vary)" />*/}
+						<Toggle label="Make your remixed playlist public" onChange={togglePublic} />
+					</Accordion>
+				) : null}
 				<div className="playlist__songs-header mb-30">
 					<Text subHeading className="mb-0 mt-0">Songs ({tracks.length})</Text>
 					<Pagination
@@ -328,6 +334,7 @@ export default function Playlist({ token, playlist, profileId, onReset, tracks, 
 						setPage={setPage}
 					/>
 				</div>
+				{!tracks.length && <Text className="mt-0">There aren't any tracks in this playlist to remix.</Text>}
 				{paginatedTracks.map(track => (
 					<TrackRow
 						key={track.id}

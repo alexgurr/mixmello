@@ -19,7 +19,7 @@ async function getLikedSong(token) {
 		{ headers: { Authorization: `Bearer ${token}`} }
 	);
 	
-	return { items };
+	return items;
 }
 
 const memoGetAllPlaylists = _memoize(getPaginatedItems);

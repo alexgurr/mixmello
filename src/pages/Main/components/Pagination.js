@@ -17,7 +17,7 @@ export default function Pagination({
 		window.scrollTo({ top: 0 });
 	}, [page])
 	
-	if (totalPages === 1) { return null; }
+	if (!totalPages || totalPages === 1) { return null; }
 	
 	const onSpecificPage = number => () => {
 		setPage(number);

@@ -112,7 +112,7 @@ function App() {
 				
 				if (!store.supported) {
 					notify({
-						text: 'It looks like you\'ve turned off cookies or local storage. This means you\'ll have to reconnect Spotify every time.',
+						text: 'It looks like you\'ve turned off cookies. This means you\'ll have to reconnect to Spotify every time.',
 						type: 'warning'
 					});
 				}

@@ -21,6 +21,8 @@ function useOnScreen(ref, rootMargin = "0px") {
 			observer.observe(ref.current);
 		}
 		return () => {
+			if (!ref.current) { return; }
+			
 			observer.unobserve(ref.current);
 		};
 	}, []); // Empty array ensures that effect is only run on mount and unmount
@@ -44,13 +46,18 @@ export default function Footer({ onReset, tracks, saving, onSave, remixListMap, 
 	
 	return (
 		<div className={cx('playlist__footer', 'mt-40', { 'playlist__footer--scrolled': !onScreen })}>
-			<a
-				className="playlist__footer__link"
-				onClick={onScroll(onScreen ? 'top' : 'bottom')}
-			>
-				Scroll To {onScreen ? 'Top' : 'Bottom'}
-				<Icon size={20} name={`fa-chevron-${onScreen ? 'up' : 'down'}`} />
-			</a>
+			{
+				tracks.length ? (
+					<a
+						className="playlist__footer__link"
+						onClick={onScroll(onScreen ? 'top' : 'bottom')}
+					>
+						Scroll To {onScreen ? 'Top' : 'Bottom'}
+						<Icon size={20} name={`fa-chevron-${onScreen ? 'up' : 'down'}`} />
+					</a>
+				)
+				: null
+			}
 			<div>
 				<Button onClick={onReset} type="secondary">
 					{isMobile ? 'Cancel' : 'Remix Another Playlist'}
@@ -58,7 +65,7 @@ export default function Footer({ onReset, tracks, saving, onSave, remixListMap, 
 				<Button
 					busy={saving}
 					onClick={onSave}
-					disabled={!name || remixListMap.size !== tracks.length}
+					disabled={!name || remixListMap.size !== tracks.length || !tracks.length}
 				>
 					Save Playlist
 				</Button>

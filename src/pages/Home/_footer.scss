@@ -38,9 +38,19 @@
     margin-left: auto;
     margin-right: auto;
 
+    &__links {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
     &__list {
       display: flex;
       align-items: center;
+
+      &__accessible {
+        display: none;
+      }
 
       > a {
         color: white !important;
