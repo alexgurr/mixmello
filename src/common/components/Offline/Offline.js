@@ -5,6 +5,7 @@ import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import { ReactComponent as OfflineLogo } from '../../../assets/images/logo-offline-icon.svg';
 import Text from '../Text';
 import './_offline.scss';
+import { Helmet } from 'react-helmet';
 
 export default function Offline({ children }) {
 	const { value: online, setFalse: setOffline, setTrue: setOnline } = useBooleanState(navigator.onLine);
@@ -37,6 +38,7 @@ export default function Offline({ children }) {
 				)}
 				style={previousOnline === online && online ? { display: 'none' } : void 0}
 			>
+				<Helmet><meta name="theme-color" content="#000000" /></Helmet>
 				<div className="offline__content">
 					<OfflineLogo />
 					<div className="offline__text">
