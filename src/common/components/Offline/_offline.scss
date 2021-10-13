@@ -1,0 +1,53 @@
+@import 'vars';
+
+.offline {
+  position: fixed;
+  top: 0;
+  z-index: 4;
+  left: calc(50% - 200px);
+  width: 400px;
+  padding-top: 40px;
+
+  @media only screen and (max-width: $mobile-width) {
+    padding-top: 20px;
+  }
+
+  @media only screen and (max-width: 500px) {
+    padding-top: 20px;
+    width: calc(100% - 40px);
+    left: 20px;
+  }
+
+  &__content {
+    padding: 15px 20px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+
+    > svg {
+      height: 50px;
+      width: auto;
+      margin-right: 20px;
+    }
+  }
+
+  &__overlay {
+    position: fixed;
+    z-index: 3;
+    background: rgba(0, 0, 0, 0.8);
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    pointer-events: none;
+
+    &--visible {
+      opacity: 1;
+      pointer-events: unset;
+    }
+  }
+}
