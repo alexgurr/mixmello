@@ -40,7 +40,7 @@ export default function Main({ token, profile, signOut }) {
 	
 	return (
 		<div className="main">
-			<Helmet><meta name="theme-color" content="#fff" /></Helmet>
+			<Helmet><meta name="theme-color" content="#ffffff" /></Helmet>
 			<Header
 				stage={stage}
 				title={STAGES[stage - 1]}
