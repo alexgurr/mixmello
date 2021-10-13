@@ -48,7 +48,7 @@ registerRoute(
     (url.origin === self.location.origin && (url.pathname.endsWith('.png') || url.pathname.endsWith('.json'))
       // Icons
       || url.href.includes('kit.fontawesome.com')
-  ),
+  )),
   new StaleWhileRevalidate({
     cacheName: 'files',
     plugins: [
