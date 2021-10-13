@@ -10,6 +10,9 @@
 ## About
 Create remixed versions of your favourite Spotify playlists.
 
+💡 Idea by [Divide-By-0](https://github.com/Divide-By-0/app-ideas-people-would-use).
+
+&nbsp;
 ### Stack
 Frontend: `react@latest`
 
