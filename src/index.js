@@ -4,10 +4,10 @@ import { BrowserRouter } from 'react-router-dom';
 import { init as initSentry, ErrorBoundary } from "@sentry/react";
 import { Integrations as TracingIntegrations } from "@sentry/tracing";
 import { register as registerServiceWorker } from './serviceWorkerRegistration';
-import 'what-input';
 import { Error } from 'common/components';
 import App from './App';
 import CONFIG from './config';
+import 'what-input';
 import './styles/_index.scss';
 
 if (process.env.NODE_ENV !== 'development') {
