@@ -1,15 +1,26 @@
 {
   "short_name": "mixmello",
   "name": "mixmello",
+  "description": "Create remixed versions of your favourite Spotify playlists.",
   "icons": [
     {
-      "src": "favicon.png",
+      "src": "/icons/icon-128.png",
+      "type": "image/png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "/icons/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/icons/icon-512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#00BA89",
+  "background_color": "#fff"
 }

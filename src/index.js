@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { init as initSentry, ErrorBoundary } from "@sentry/react";
 import { Integrations as TracingIntegrations } from "@sentry/tracing";
+import { register } from './serviceWorkerRegistration';
 import 'what-input';
 import { Error } from 'common/components';
 import App from './App';
@@ -27,3 +28,5 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
+
+serviceWorkerRegistration.register();
