@@ -28,6 +28,9 @@ export default function Footer() {
 					</div>
 				</div>
 				<Text inverse className="footer__copyright mt-40">
+					<Icon colour="#F4C51B" name="fa-lightbulb" size={15} className="mr-10" />Idea by <a target="_blank" rel="noreferrer" href="https://github.com/Divide-By-0/app-ideas-people-would-use">Divide-By-0</a>
+				</Text>
+				<Text inverse className="footer__copyright mt-20">
 					©2021 Alex Gurr. All rights reserved. Various trademarks held by their respective owners.
 				</Text>
 			</div>

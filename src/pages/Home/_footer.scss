@@ -38,6 +38,25 @@
     margin-left: auto;
     margin-right: auto;
 
+    a {
+      color: white !important;
+
+      &:hover {
+        color: $text !important;
+      }
+
+      > .icon {
+        &:hover {
+          color: $text !important;
+        }
+
+        @media only screen and (max-width: $mobile-width) {
+          width: auto;
+          height: 25px;
+        }
+      }
+    }
+
     &__links {
       display: flex;
       justify-content: space-between;
@@ -50,25 +69,6 @@
 
       &__accessible {
         display: none;
-      }
-
-      > a {
-        color: white !important;
-
-        &:hover {
-          color: $text !important;
-        }
-
-        > .icon {
-          &:hover {
-            color: $text !important;
-          }
-
-          @media only screen and (max-width: $mobile-width) {
-            width: auto;
-            height: 25px;
-          }
-        }
       }
 
       > *:not(:last-child) {
