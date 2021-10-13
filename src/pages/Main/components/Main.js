@@ -6,6 +6,7 @@ import { ReactComponent as Waves } from '../../../assets/images/wave.svg';
 import getPlaylistTracks from '../api/getPlaylistTracks';
 import Success from './Success';
 import '../styles/_main.scss';
+import { Helmet } from 'react-helmet';
 
 const STAGES = [
 	'Find a playlist',
@@ -39,6 +40,7 @@ export default function Main({ token, profile, signOut }) {
 	
 	return (
 		<div className="main">
+			<Helmet><meta name="theme-color" content="#ffffff" /></Helmet>
 			<Header
 				stage={stage}
 				title={STAGES[stage - 1]}

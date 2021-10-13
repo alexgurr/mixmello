@@ -1,13 +1,15 @@
+import { Helmet } from 'react-helmet';
 import { Button, Text } from 'common/components';
 import { ReactComponent as Logo } from '../../assets/images/logo-inverse.svg';
 import { ReactComponent as Waves } from '../../assets/images/wave.svg';
 import { ReactComponent as Circles } from '../../assets/images/circles.svg';
-import './_home.scss';
 import Footer from './Footer';
+import './_home.scss';
 
 export default function Home({ onConnect }) {
 	return (
 		<div className="home">
+			<Helmet><meta name="theme-color" content="#00BA89" /></Helmet>
 			<div className="home__intro">
 				<Logo className="home__intro__logo" />
 				<Text inverse heading className="mt-20">Create remixed versions of your favourite playlists.</Text>
