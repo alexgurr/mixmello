@@ -53,7 +53,7 @@ export default function Footer({ onReset, tracks, saving, onSave, remixListMap, 
 						onClick={onScroll(onScreen ? 'top' : 'bottom')}
 					>
 						Scroll To {onScreen ? 'Top' : 'Bottom'}
-						<Icon size={20} name={`fa-chevron-${onScreen ? 'up' : 'down'}`} />
+						<Icon colour="#00BA89" size={20} name={`fa-chevron-${onScreen ? 'up' : 'down'}`} />
 					</a>
 				)
 				: null
