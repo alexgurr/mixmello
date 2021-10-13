@@ -38,7 +38,7 @@ export default function Offline({ children }) {
 				)}
 				style={previousOnline === online && online ? { display: 'none' } : void 0}
 			>
-				<Helmet><meta name="theme-color" content="#000000" /></Helmet>
+				{!online && <Helmet><meta name="theme-color" content="#000000" /></Helmet>}
 				<div className="offline__content">
 					<OfflineLogo />
 					<div className="offline__text">
