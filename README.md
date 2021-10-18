@@ -6,10 +6,14 @@
 [![GitHub Issues](https://img.shields.io/github/issues/alexgurr/mixmello.svg)](https://github.com/alexgurr/mixmello/issues)
 ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)
 
+www.mixmello.com
+
 &nbsp;
 ## About
 Create remixed versions of your favourite Spotify playlists.
 
+
+&nbsp;
 💡 Idea by [Divide-By-0](https://github.com/Divide-By-0/app-ideas-people-would-use).
 
 &nbsp;
